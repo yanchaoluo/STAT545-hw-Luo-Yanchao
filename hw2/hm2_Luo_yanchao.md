@@ -531,7 +531,7 @@ table(gapminder$continent)
 barplot(table(gapminder$continent))
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png)
 
 From above, we can find how many data in different continent. Asia should be a typical value, because Asia has the largest data in `gapminder`. From the plot, it shows how spread of the `continent`. the Categorial variable `country`.
 
@@ -641,7 +641,7 @@ table(gapminder$country)
 barplot(table(gapminder$country))
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-20-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-20-1.png)
 
 From above, we can find 12 data for each country. And from the barplot, the `country` variable should have uniform distribution.
 
@@ -671,7 +671,7 @@ gapminder %>%
 hist(gapminder$lifeExp)
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png)
 
 The mean for lifeExp is 59.47. Consider about spread, if we use standard diviation: sd =12.9. From the plot above, it can clearly see that the distribution skewed to the right. Most of the data fall in the interval(65,80).
 
@@ -699,7 +699,7 @@ gapminder %>%
 hist(gapminder$pop)
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-22-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-22-1.png)
 
 The mean for lifeExp is 29601212. Consider about spread, if we use standard diviation: sd =106157897. From the plot above, it can clearly see that the distribution skewed to the left. Most of the data fall in the interval(0, 10^8).
 
@@ -727,7 +727,7 @@ p1<- ggplot(new, aes(x = gdp_percap, y = life_exp))
 p1 + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
 
 ##### Scatterplot 2: Scatterplot of `year` and `pop`, only consider three countries: United states, Canada, China
 
@@ -745,7 +745,7 @@ p2 + geom_point(aes(shape=country, color= continent))+
 geom_line(aes(group = country))
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
 
 ##### Scatterplot 3: Scatterplot of `year` and `lifeExp`.
 
@@ -760,7 +760,7 @@ ggplot(gapminder, aes(x = year, y = lifeExp,
 
     ## `geom_smooth()` using method = 'loess'
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
 
 Seperate different continent by using `facet_wrap()`.
 
@@ -774,7 +774,7 @@ geom_jitter(alpha = 0.5, size = 2)+
 
     ## `geom_smooth()` using method = 'loess'
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-28-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-28-1.png)
 
 -   **A plot of one quantitative variable. Maybe a histogram or densityplot or frequency polygon.**
 
@@ -787,7 +787,7 @@ p3+geom_histogram(aes(fill=continent))
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-29-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-29-1.png)
 
 ##### Density plot of gdpPercap except "Asia".
 
@@ -799,7 +799,7 @@ ggplot(new3,aes(x = gdpPercap, fill = continent)) +
          geom_density(alpha = 0.25)
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-30-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-30-1.png)
 
 ##### Frequency polygon of gdpPercap.
 
@@ -809,7 +809,7 @@ ggplot(gapminder, aes(x = gdpPercap, color = continent)) +geom_freqpoly()
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-31-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-31-1.png)
 
 -   **A plot of one quantitative variable and one categorical. Maybe boxplots for several continents or countries.**
 
@@ -826,7 +826,7 @@ new4<- gapminder %>%
 ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot()
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-33-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-33-1.png)
 
 Use of dplyr and %&gt;%
 -----------------------
@@ -845,7 +845,7 @@ ggplot(new5,aes(x = gdp, fill = continent)) +
          geom_density(alpha = 0.25)
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-34-1.png)
+![](hm2_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-34-1.png)
 
 The method above, I use `select`, `mutate`, `arrange`and `filter` to find a subset of data.
 
