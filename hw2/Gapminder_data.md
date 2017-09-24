@@ -9,7 +9,7 @@ Bring rectangular data in
 ``` r
 ##install.packages("gapminder")
 
-##install.packages("tidyverse")
+##install.packages("tidyverse") 
 ```
 
 ### Load the data
@@ -529,7 +529,9 @@ table(gapminder$continent)
 barplot(table(gapminder$continent))
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png) From above, we can find how many data in different continent. Asia should be a typical value, because Asia has the largest data in `gapminder`. From the plot, it shows how spread of the `continent`. the Categorial variable `country`.
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png)
+
+From above, we can find how many data in different continent. Asia should be a typical value, because Asia has the largest data in `gapminder`. From the plot, it shows how spread of the `continent`. the Categorial variable `country`.
 
 ``` r
 table(gapminder$country)
@@ -637,7 +639,9 @@ table(gapminder$country)
 barplot(table(gapminder$country))
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-20-1.png) From above, we can find 12 data for each country. And from the barplot, the `country` variable should have uniform distribution.
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-20-1.png)
+
+From above, we can find 12 data for each country. And from the barplot, the `country` variable should have uniform distribution.
 
 ##### Quantitative variable
 
@@ -665,7 +669,9 @@ gapminder %>%
 hist(gapminder$lifeExp)
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png) The mean for lifeExp is 59.47. Consider about spread, if we use standard diviation: sd =12.9. From the plot above, it can clearly see that the distribution skewed to the right. Most of the data fall in the interval(65,80).
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png)
+
+The mean for lifeExp is 59.47. Consider about spread, if we use standard diviation: sd =12.9. From the plot above, it can clearly see that the distribution skewed to the right. Most of the data fall in the interval(65,80).
 
 The Quantitative variable `pop`.
 
@@ -691,7 +697,9 @@ gapminder %>%
 hist(gapminder$pop)
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-22-1.png) The mean for lifeExp is 29601212. Consider about spread, if we use standard diviation: sd =106157897. From the plot above, it can clearly see that the distribution skewed to the left. Most of the data fall in the interval(0, 10^8).
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-22-1.png)
+
+The mean for lifeExp is 29601212. Consider about spread, if we use standard diviation: sd =106157897. From the plot above, it can clearly see that the distribution skewed to the left. Most of the data fall in the interval(0, 10^8).
 
 Explore various plot types
 --------------------------
@@ -723,7 +731,7 @@ p1 + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
 
 ``` r
 new2<- gapminder %>% 
-  filter(country==c("France", "Canada", "China")) %>% 
+  filter(country%in%c("France", "Canada", "China")) %>% 
   select(country,continent,year,pop)  
 ```
 
@@ -735,7 +743,11 @@ p2 + geom_point(aes(shape=country, color= continent))+
 geom_line(aes(group = country))
 ```
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png) \#\#\#\# Scatterplot 3: Scatterplot of 'year' and 'lifeExp' Using `geom_jitter` and `geom_smooth`
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
+
+#### Scatterplot 3: Scatterplot of 'year' and 'lifeExp'
+
+Using `geom_jitter` and `geom_smooth`
 
 ``` r
 ggplot(gapminder, aes(x = year, y = lifeExp,
@@ -746,7 +758,9 @@ ggplot(gapminder, aes(x = year, y = lifeExp,
 
     ## `geom_smooth()` using method = 'loess'
 
-![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png) Seperate different continent by using `facet_wrap()`
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
+
+Seperate different continent by using `facet_wrap()`
 
 ``` r
 ggplot(gapminder, aes(x = year, y = lifeExp,
@@ -761,3 +775,118 @@ geom_jitter(alpha = 0.5, size = 2)+
 ![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-28-1.png)
 
 -   **A plot of one quantitative variable. Maybe a histogram or densityplot or frequency polygon.**
+
+##### Histogram for gdpPercap
+
+``` r
+p3<-ggplot(gapminder,aes(x = gdpPercap ))
+p3+geom_histogram(aes(fill=continent))
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-29-1.png)
+
+##### Density plot of gdpPercap except "Asia".
+
+``` r
+new3<- gapminder %>% 
+  filter(continent!= "Asia") %>% 
+  select(continent, country, gdpPercap)
+ggplot(new3,aes(x = gdpPercap, fill = continent)) + 
+         geom_density(alpha = 0.25)
+```
+
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-30-1.png)
+
+##### Frequency polygon of gdpPercap
+
+``` r
+ggplot(gapminder, aes(x = gdpPercap, color = continent)) +geom_freqpoly()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-31-1.png)
+
+-   **A plot of one quantitative variable and one categorical. Maybe boxplots for several continents or countries.**
+
+Creat a subset for continent, and exclude Oceania boxplot of the quantitative variable `gdpPercap` and categorical variable `continent` (except Oceania)
+
+``` r
+new4<- gapminder %>% 
+  filter(continent!= "Oceania") %>% 
+  select(continent, country, gdpPercap) %>% 
+  arrange(country, continent, gdpPercap)
+```
+
+``` r
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot()
+```
+
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-33-1.png)
+
+Use of dplyr and %&gt;%
+-----------------------
+
+We want to compare different continent gdp density when country's gdp&lt;500 billion.
+
+``` r
+new5<- gapminder%>%
+  select(lifeExp, continent, country, year, gdpPercap, pop) %>% 
+  mutate(gdp=gdpPercap * pop, gdp=round(gdp/1000000000, 1))%>%
+  arrange(year,desc(gdp),gdpPercap,pop)  %>% 
+  select(c(-gdpPercap,-pop))%>% 
+  filter(gdp < 500)
+
+ggplot(new5,aes(x = gdp, fill = continent)) + 
+         geom_density(alpha = 0.25)
+```
+
+![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-34-1.png)
+
+The method above, I use `select`, `mutate`, `arrange`and `filter` to find a subset of data.
+
+But I want to do more!
+----------------------
+
+``` r
+filter(gapminder, country == c("Rwanda", "Afghanistan"))
+```
+
+    ## # A tibble: 12 x 6
+    ##        country continent  year lifeExp      pop gdpPercap
+    ##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+    ##  1 Afghanistan      Asia  1957  30.332  9240934  820.8530
+    ##  2 Afghanistan      Asia  1967  34.020 11537966  836.1971
+    ##  3 Afghanistan      Asia  1977  38.438 14880372  786.1134
+    ##  4 Afghanistan      Asia  1987  40.822 13867957  852.3959
+    ##  5 Afghanistan      Asia  1997  41.763 22227415  635.3414
+    ##  6 Afghanistan      Asia  2007  43.828 31889923  974.5803
+    ##  7      Rwanda    Africa  1952  40.000  2534927  493.3239
+    ##  8      Rwanda    Africa  1962  43.000  3051242  597.4731
+    ##  9      Rwanda    Africa  1972  44.600  3992121  590.5807
+    ## 10      Rwanda    Africa  1982  46.218  5507565  881.5706
+    ## 11      Rwanda    Africa  1992  23.599  7290203  737.0686
+    ## 12      Rwanda    Africa  2002  43.413  7852401  785.6538
+
+The given code is wrong, we cannot get all the data for "Rwanda", "Afghanistan". We set country == c("Rwanda", "Afghanistan"), so `country` firstly equal to "Rwanda", then if the system find the "Rwanda", then the variable `country` will automatically equal to "Afghanistan"; if the system find the "Afghanistan", then the variable `country` will automatically equal to "Rwanda", and the system will repete this steps again and again. Therefore if we use `country`==c("Rwanda", "Afghanistan"), we will lost half of the data. The right way should use `%in%` in stead of `==`.
+
+``` r
+filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
+```
+
+    ## # A tibble: 24 x 6
+    ##        country continent  year lifeExp      pop gdpPercap
+    ##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+    ##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453
+    ##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530
+    ##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007
+    ##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971
+    ##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811
+    ##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134
+    ##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114
+    ##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959
+    ##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414
+    ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+    ## # ... with 14 more rows

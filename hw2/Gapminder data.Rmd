@@ -9,7 +9,7 @@ output: github_document
 ```{r}
 ##install.packages("gapminder")
 
-##install.packages("tidyverse")
+##install.packages("tidyverse") 
 ```
 
 ### Load the data
@@ -40,32 +40,39 @@ ncol(gapminder)
 
 length(gapminder)
 ```
+
 There are two ways to show how many variables using `ncol` and `length` functions.
 In addition, we can print `gapminder` dirctly by using `head` or `tail` function.
+
 ```{r}
 head(gapminder)
 tail(gapminder)
 ```
 
 **Q4: How many rows/observations?**
+
 ```{r}
 nrow(gapminder)
 
 ```
+
 There are 1704 observations.
 
 **Q5: Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?**
 ```{r}
 dim(gapminder)
 ```
+
 One way to shows how many rows and variables is using `dim()`.
 From the output, `gapminder` has 1704 rows and 6 columns
 If we need to deal with the vector, at that time we can not use `dim()` function, because if different columns are linear dependent, the number of columns not equal to the dimension of columns.
 More methods about `gapminder` size.
+
 ```{r}
 summary(gapminder)
 str(gapminder)
 ```
+
 From `summary` function, we can find the mean, median, minimum, maximum about each variable. And using `str`, we could find name, class, type of data.  
 
 **Q6: What data type is each variable?**
@@ -78,6 +85,7 @@ class(gapminder$lifeExp)
 class(gapminder$pop)
 class(gapminder$gdpPercap)
 ```
+
 The second way
 ```{r}
 typeof(gapminder$country) 
@@ -87,17 +95,20 @@ typeof(gapminder$lifeExp)
 typeof(gapminder$pop)
 typeof(gapminder$gdpPercap)
 ```
+
 The third way
 ```{r}
 str(gapminder)
 ```
 
 ## Explore individual variables
+
 There are 6 variables for gapminder, 3 quantitative variables: `year`, `lifeExp`, `gdpPercap` and `pop`; 2 categorical variable: `conti nent` and `country`.
 
 **Q1: What are possible values (or range, whichever is appropriate) of each variable?**
 
 ##### Categorical variables 
+
 The categorial variable `continent`.
 ```{r}
 ##The first method
@@ -108,6 +119,7 @@ gapminder %>%
 ##the third method
   unique(gapminder$continent)
 ```
+
 There are 5 value for `continent` : Africa, Americas, Asia, Europe and Oceania.
 the Categorial variable `country`.
 
@@ -120,7 +132,9 @@ gapminder %>%
 ##the third method
   unique(gapminder$country)
 ```
+
 ##### Quantitative variable
+
 The Quantitative variable `lifeExp`.
 ```{r}
 summary(gapminder$lifeExp)
@@ -131,10 +145,11 @@ summary(gapminder$lifeExp)
 gapminder %>% 
   summarize(mean_lifeExp=mean(lifeExp), min_lifeExp=min(lifeExp), max_lifeExp=max(lifeExp), median_lifeExp=median(lifeExp))
 ```
+
 The range for life expectancy between 23.6 and 83.6, the mean is 59.47, median is 60.71.
 
-
 The Quantitative variable `pop`.
+
 ```{r}
 summary(gapminder$pop)
 ```
@@ -150,22 +165,28 @@ The range for population from 60011 and 1318683096, the mean is 29601212, median
 We usually use mean to represent typical value, and we can estimate spread using variance or IQR. Moreover, we can plot the graph to find the distribution.
 
 ##### Categorical variables 
+
 The categorial variable `continent`.
 ```{r}
 summary(gapminder$continent)
 table(gapminder$continent)
 barplot(table(gapminder$continent))
 ```
+
 From above, we can find how many data in different continent. Asia should be a typical value, because Asia has the largest data in `gapminder`. From the plot, it shows how spread of the `continent`.
 the Categorial variable `country`.
+
 ```{r}
 table(gapminder$country)
 barplot(table(gapminder$country))
 ```
+
 From above, we can find 12 data for each country. And from the barplot, the `country` variable should have uniform distribution. 
 
 ##### Quantitative variable
+
 The Quantitative variable `lifeExp`.
+
 ```{r}
 summary(gapminder$lifeExp)
 ##another way
@@ -174,9 +195,11 @@ gapminder %>%
 hist(gapminder$lifeExp)
 
 ```
+
 The mean for lifeExp is 59.47. Consider about spread, if we use standard diviation: sd =12.9. From the plot above, it can clearly see that the distribution skewed to the right. Most of the data fall in the interval(65,80).
 
 The Quantitative variable `pop`.
+
 ```{r}
 summary(gapminder$pop)
 ##another way
@@ -185,6 +208,7 @@ gapminder %>%
 hist(gapminder$pop)
 
 ```
+
 The mean for lifeExp is 29601212. Consider about spread, if we use standard diviation: sd =106157897. From the plot above, it can clearly see that the distribution skewed to the left. Most of the data fall in the interval(0, 10^8).
 
 
@@ -202,7 +226,9 @@ new<- gapminder %>%
          gdp_percap = gdpPercap)
 
 ```
+
 Ggplot based on new dataset, add the color for continent, size for year. this plot changes transparency to 0.5, and make a log transformation.
+
 ```{r}
 p1<- ggplot(new, aes(x = gdp_percap, y = life_exp))
 p1 + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
@@ -212,24 +238,31 @@ p1 + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
 
 ```{r}
 new2<- gapminder %>% 
-  filter(country==c("France", "Canada", "China")) %>% 
+  filter(country%in%c("France", "Canada", "China")) %>% 
   select(country,continent,year,pop)  
 ```
+
 Adding shape for country, color for continent, also using `geom_line`
+
 ```{r}
 p2 <- ggplot(new2, aes(year, pop))
 p2 + geom_point(aes(shape=country, color= continent))+
 geom_line(aes(group = country))
 ```
+
 #### Scatterplot 3: Scatterplot of 'year' and 'lifeExp'
+
 Using `geom_jitter` and `geom_smooth` 
+
 ```{r}
 ggplot(gapminder, aes(x = year, y = lifeExp,
                       color = continent)) +
   geom_jitter(alpha = 0.5, size = 2)+
     geom_smooth(lwd = 3, se = FALSE)
 ```
+
 Seperate different continent by using `facet_wrap()`
+
 ```{r}
 ggplot(gapminder, aes(x = year, y = lifeExp,
                       color = continent)) +
@@ -239,4 +272,78 @@ geom_jitter(alpha = 0.5, size = 2)+
 ```
 
 + **A plot of one quantitative variable. Maybe a histogram or densityplot or frequency polygon.**
+
+##### Histogram for gdpPercap
+
+```{r}
+p3<-ggplot(gapminder,aes(x = gdpPercap ))
+p3+geom_histogram(aes(fill=continent))
+```
+
+#####Density plot of gdpPercap except "Asia". 
+
+```{r}
+new3<- gapminder %>% 
+  filter(continent!= "Asia") %>% 
+  select(continent, country, gdpPercap)
+ggplot(new3,aes(x = gdpPercap, fill = continent)) + 
+         geom_density(alpha = 0.25)
+
+```
+
+#####Frequency polygon of gdpPercap
+
+```{r}
+ggplot(gapminder, aes(x = gdpPercap, color = continent)) +geom_freqpoly()
+
+```
+
++ **A plot of one quantitative variable and one categorical. Maybe boxplots for several continents or countries.**
+
+Creat a subset for continent, and exclude Oceania
+boxplot of the quantitative variable `gdpPercap` and categorical variable `continent` (except Oceania)
+
+```{r}
+new4<- gapminder %>% 
+  filter(continent!= "Oceania") %>% 
+  select(continent, country, gdpPercap) %>% 
+  arrange(country, continent, gdpPercap)
+```
+
+```{r}
+ggplot(gapminder, aes(x = continent, y = gdpPercap)) + geom_boxplot()
+
+```
+
+## Use of dplyr and %>% 
+
+We want to compare different continent gdp density when country's gdp<500 billion. 
+
+```{r}
+new5<- gapminder%>%
+  select(lifeExp, continent, country, year, gdpPercap, pop) %>% 
+  mutate(gdp=gdpPercap * pop, gdp=round(gdp/1000000000, 1))%>%
+  arrange(year,desc(gdp),gdpPercap,pop)  %>% 
+  select(c(-gdpPercap,-pop))%>% 
+  filter(gdp < 500)
+
+ggplot(new5,aes(x = gdp, fill = continent)) + 
+         geom_density(alpha = 0.25)
+```
+
+The method above, I use `select`, `mutate`, `arrange`and `filter` to find a subset of data.
+
+## But I want to do more!
+```{r}
+filter(gapminder, country == c("Rwanda", "Afghanistan"))
+```
+
+The given code is wrong, we cannot get all the data for "Rwanda", "Afghanistan". We set country == c("Rwanda", "Afghanistan"), so `country` firstly equal to "Rwanda", then if the system find the "Rwanda", then the variable `country` will automatically equal to "Afghanistan"; 
+if the system find the "Afghanistan", then the variable `country` will automatically equal to "Rwanda", and the system will repete this steps again and again.
+Therefore if we use `country`==c("Rwanda", "Afghanistan"), we will lost half of the data. 
+The right way should use `%in%` in stead of `==`.
+
+```{r}
+filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
+```
 
