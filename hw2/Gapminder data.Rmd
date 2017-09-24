@@ -19,6 +19,7 @@ library(tidyverse)
 ```
 
 ## Smell test the data
+
 **Q1: Is it a data.frame, a matrix, a vector, a list?**
 
 
@@ -52,6 +53,7 @@ nrow(gapminder)
 
 ```
 There are 1704 observations.
+
 **Q5: Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?**
 ```{r}
 dim(gapminder)
@@ -65,6 +67,7 @@ summary(gapminder)
 str(gapminder)
 ```
 From `summary` function, we can find the mean, median, minimum, maximum about each variable. And using `str`, we could find name, class, type of data.  
+
 **Q6: What data type is each variable?**
 
 ```{r}
@@ -93,7 +96,8 @@ str(gapminder)
 There are 6 variables for gapminder, 3 quantitative variables: `year`, `lifeExp`, `gdpPercap` and `pop`; 2 categorical variable: `conti nent` and `country`.
 
 **Q1: What are possible values (or range, whichever is appropriate) of each variable?**
-##### Categorical variables #####
+
+##### Categorical variables 
 The categorial variable `continent`.
 ```{r}
 ##The first method
@@ -116,31 +120,80 @@ gapminder %>%
 ##the third method
   unique(gapminder$country)
 ```
-### Quantitative variable
-#### Life Expectancy variable
+##### Quantitative variable
+The Quantitative variable `lifeExp`.
 ```{r}
-head(gapminder$lifeExp)
 summary(gapminder$lifeExp)
+```
+
+```{r}
+## Another way using %>%
+gapminder %>% 
+  summarize(mean_lifeExp=mean(lifeExp), min_lifeExp=min(lifeExp), max_lifeExp=max(lifeExp), median_lifeExp=median(lifeExp))
+```
+The range for life expectancy between 23.6 and 83.6, the mean is 59.47, median is 60.71.
+
+
+The Quantitative variable `pop`.
+```{r}
+summary(gapminder$pop)
+```
+```{r}
+## Another way using %>%
+gapminder %>% 
+  summarize(mean_lifeExp=mean(pop), min_lifeExp=min(pop), max_lifeExp=max(pop), median_lifeExp=median(pop))
+```
+
+The range for population from 60011 and 1318683096, the mean is 29601212, median is 7023596.
+
+** Q2: What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.**
+We usually use mean to represent typical value, and we can estimate spread using variance or IQR. Moreover, we can plot the graph to find the distribution.
+
+##### Categorical variables 
+The categorial variable `continent`.
+```{r}
+summary(gapminder$continent)
+table(gapminder$continent)
+barplot(table(gapminder$continent))
+```
+From above, we can find how many data in different continent. Asia should be a typical value, because Asia has the largest data in `gapminder`. From the plot, it shows how spread of the `continent`.
+the Categorial variable `country`.
+```{r}
+table(gapminder$country)
+barplot(table(gapminder$country))
+```
+From above, we can find 12 data for each country. And from the barplot, the `country` variable should have uniform distribution. 
+
+##### Quantitative variable
+The Quantitative variable `lifeExp`.
+```{r}
+summary(gapminder$lifeExp)
+##another way
+gapminder %>% 
+  summarize(mean_lifeExp=mean(lifeExp), sd_lifeExp=sd(lifeExp), min_lifeExp=min(lifeExp), max_lifeExp=max(lifeExp), median_lifeExp=median(lifeExp))
 hist(gapminder$lifeExp)
 
 ```
+The mean for lifeExp is 59.47. Consider about spread, if we use standard diviation: sd =12.9. From the plot above, it can clearly see that the distribution skewed to the right. Most of the data fall in the interval(65,80).
 
-From the R out put the min for Life Expectancy is 23.6
-the largest value for Life Expectancy is 82.6
-The data is right skewed
-70 to 75 Life Expctancy have the highest frequency
-
-#### popualtion variable
+The Quantitative variable `pop`.
 ```{r}
-head(gapminder$pop)
 summary(gapminder$pop)
-hist(gapminder$pop, freq = F)
+##another way
+gapminder %>% 
+  summarize(mean_lifeExp=mean(pop), sd_lifeExp=sd(pop), min_lifeExp=min(pop), max_lifeExp=max(pop), median_lifeExp=median(pop))
+hist(gapminder$pop)
 
 ```
+The mean for lifeExp is 29601212. Consider about spread, if we use standard diviation: sd =106157897. From the plot above, it can clearly see that the distribution skewed to the left. Most of the data fall in the interval(0, 10^8).
+
 
 ## Explore various plot types
 
-### A scatterplot of two quantitative variables.
++ **A scatterplot of two quantitative variables.**
+
+#### Scatterplot 1: scatterplot of `lifeExp` and `gdpPercap`, only consider the continent: Asia, Europe and Americas
+Using `filter`, `select`, and `rename` dplyr.
 ```{r}
 new<- gapminder %>% 
   filter(continent==c("Europe", "Asia", "Americas")) %>% 
@@ -149,10 +202,41 @@ new<- gapminder %>%
          gdp_percap = gdpPercap)
 
 ```
-
+Ggplot based on new dataset, add the color for continent, size for year. this plot changes transparency to 0.5, and make a log transformation.
 ```{r}
-p<- ggplot(new, aes(x = gdp_percap, y = life_exp))
-p + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
+p1<- ggplot(new, aes(x = gdp_percap, y = life_exp))
+p1 + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
 ```
 
+#### Scatterplot 2: Scatterplot of 'year' and 'pop', only consider three countries: United states, Canada, China 
+
+```{r}
+new2<- gapminder %>% 
+  filter(country==c("France", "Canada", "China")) %>% 
+  select(country,continent,year,pop)  
+```
+Adding shape for country, color for continent, also using `geom_line`
+```{r}
+p2 <- ggplot(new2, aes(year, pop))
+p2 + geom_point(aes(shape=country, color= continent))+
+geom_line(aes(group = country))
+```
+#### Scatterplot 3: Scatterplot of 'year' and 'lifeExp'
+Using `geom_jitter` and `geom_smooth` 
+```{r}
+ggplot(gapminder, aes(x = year, y = lifeExp,
+                      color = continent)) +
+  geom_jitter(alpha = 0.5, size = 2)+
+    geom_smooth(lwd = 3, se = FALSE)
+```
+Seperate different continent by using `facet_wrap()`
+```{r}
+ggplot(gapminder, aes(x = year, y = lifeExp,
+                      color = continent)) +
+  facet_wrap(~ continent) +
+geom_jitter(alpha = 0.5, size = 2)+
+ geom_smooth(lwd = 2, se = F)
+```
+
++ **A plot of one quantitative variable. Maybe a histogram or densityplot or frequency polygon.**
 
