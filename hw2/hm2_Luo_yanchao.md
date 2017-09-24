@@ -42,7 +42,9 @@ typeof(gapminder)
 
     ## [1] "list"
 
-From the output, `gapminder` data is a list. **Q2: What’s its class?**
+From the output, `gapminder` data is a list.
+
+**Q2: What’s its class?**
 
 ``` r
 class(gapminder)

@@ -27,6 +27,7 @@ library(tidyverse)
 typeof(gapminder)
 ```
 From the output, `gapminder` data is a list. 
+
 **Q2: What’s its class?**
 ```{r}
 class(gapminder)
