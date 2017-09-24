@@ -504,7 +504,9 @@ gapminder %>%
 
 The range for population from 60011 and 1318683096, the mean is 29601212, median is 7023596.
 
-\*\* Q2: What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.\*\* We usually use mean to represent typical value, and we can estimate spread using variance or IQR. Moreover, we can plot the graph to find the distribution.
+**Q2: What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.**
+
+We usually use mean to represent typical value, and we can estimate spread using variance or IQR. Moreover, we can plot the graph to find the distribution.
 
 ##### Categorical variables
 
@@ -727,7 +729,7 @@ p1 + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
 
 ![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
 
-#### Scatterplot 2: Scatterplot of 'year' and 'pop', only consider three countries: United states, Canada, China
+#### Scatterplot 2: Scatterplot of `year` and `pop`, only consider three countries: United states, Canada, China
 
 ``` r
 new2<- gapminder %>% 
@@ -745,7 +747,7 @@ geom_line(aes(group = country))
 
 ![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
 
-#### Scatterplot 3: Scatterplot of 'year' and 'lifeExp'
+#### Scatterplot 3: Scatterplot of `year` and `lifeExp`.
 
 Using `geom_jitter` and `geom_smooth`
 
@@ -760,7 +762,7 @@ ggplot(gapminder, aes(x = year, y = lifeExp,
 
 ![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-27-1.png)
 
-Seperate different continent by using `facet_wrap()`
+Seperate different continent by using `facet_wrap()`.
 
 ``` r
 ggplot(gapminder, aes(x = year, y = lifeExp,
@@ -776,7 +778,7 @@ geom_jitter(alpha = 0.5, size = 2)+
 
 -   **A plot of one quantitative variable. Maybe a histogram or densityplot or frequency polygon.**
 
-##### Histogram for gdpPercap
+##### Histogram for gdpPercap.
 
 ``` r
 p3<-ggplot(gapminder,aes(x = gdpPercap ))
@@ -799,7 +801,7 @@ ggplot(new3,aes(x = gdpPercap, fill = continent)) +
 
 ![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-30-1.png)
 
-##### Frequency polygon of gdpPercap
+##### Frequency polygon of gdpPercap.
 
 ``` r
 ggplot(gapminder, aes(x = gdpPercap, color = continent)) +geom_freqpoly()
