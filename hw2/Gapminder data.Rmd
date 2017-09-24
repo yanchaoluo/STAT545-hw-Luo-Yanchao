@@ -1,0 +1,137 @@
+---
+title: "Expolre gapminder"
+
+output: github_document
+---
+## Bring rectangular data in
+
+### First time to install the data `gapminder` and `dplyr`
+```{r}
+##install.packages("gapminder")
+
+##install.packages("tidyverse")
+```
+
+### Load the data
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+## Smell test the data
+** Q1: Is it a data.frame, a matrix, a vector, a list? **
+
+
+```{r}
+typeof(gapminder)
+```
+From the output, `gapminder` data is a list. 
+** Q2: What’s its class? **
+```{r}
+class(gapminder)
+```
+
+From the R output above, it shows that gapminder should be a data.frame, but also a tibble.
+
+** Q3: How many variables/columns?**
+```{r}
+ncol(gapminder)
+
+length(gapminder)
+```
+There are two ways to show how many variables using `ncol` and `length` functions.
+** Q4: How many rows/observations?**
+```{r}
+nrow(gapminder)
+```
+
+### Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?
+```{r}
+##whant to shows what's its class
+lapply(gapminder, class)
+## one way to shows how many rows and variables is using dim()
+dim(gapminder)
+
+```
+If we need to deal with the vector, at that time we can not dim() function, because there might some dependence for different column. Therefore, the number of column not equal to the dimension of column
+
+
+### What data type is each variable?
+
+```{r}
+class(gapminder$country)
+class(gapminder$continent)
+class(gapminder$year)
+class(gapminder$lifeExp)
+class(gapminder$pop)
+class(gapminder$gdpPercap)
+```
+## Explore individual variables
+
+### Categorial variables
+The variables for  continent
+What are possible values (or range, whichever is appropriate) of each variable?&&
+What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand
+```{r}
+class(gapminder$continent)
+summary(gapminder$continent)
+levels(gapminder$continent)
+nlevels(gapminder$continent)
+table(gapminder$continent)
+barplot(table(gapminder$continent))
+## From the data, it shows that Africa has the largest dataset and Oceania has the lowest data set
+
+```
+the variables for country
+What are possible values (or range, whichever is appropriate) of each variable?&&
+What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand
+```{r}
+class(gapminder$country)
+summary(gapminder$country)
+levels(gapminder$country)
+nlevels(gapminder$country)
+table(gapminder$country)
+barplot(table(gapminder$country))
+## From the data, it shows that Africa has the largest dataset and Oceania has the lowest data set
+
+```
+### Quantitative variable
+#### Life Expectancy variable
+```{r}
+head(gapminder$lifeExp)
+summary(gapminder$lifeExp)
+hist(gapminder$lifeExp)
+
+```
+
+From the R out put the min for Life Expectancy is 23.6
+the largest value for Life Expectancy is 82.6
+The data is right skewed
+70 to 75 Life Expctancy have the highest frequency
+
+#### popualtion variable
+```{r}
+head(gapminder$pop)
+summary(gapminder$pop)
+hist(gapminder$pop, freq = F)
+
+```
+
+## Explore various plot types
+
+### A scatterplot of two quantitative variables.
+```{r}
+new<- gapminder %>% 
+  filter(continent==c("Europe", "Asia", "Americas")) %>% 
+  select(continent,year,lifeExp,gdpPercap) %>% 
+  rename(life_exp = lifeExp,
+         gdp_percap = gdpPercap)
+
+```
+
+```{r}
+p<- ggplot(new, aes(x = gdp_percap, y = life_exp))
+p + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
+```
+
+
