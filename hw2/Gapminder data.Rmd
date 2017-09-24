@@ -19,44 +19,53 @@ library(tidyverse)
 ```
 
 ## Smell test the data
-** Q1: Is it a data.frame, a matrix, a vector, a list? **
+**Q1: Is it a data.frame, a matrix, a vector, a list?**
 
 
 ```{r}
 typeof(gapminder)
 ```
 From the output, `gapminder` data is a list. 
-** Q2: What’s its class? **
+**Q2: What’s its class?**
 ```{r}
 class(gapminder)
 ```
 
 From the R output above, it shows that gapminder should be a data.frame, but also a tibble.
 
-** Q3: How many variables/columns?**
+**Q3: How many variables/columns?**
 ```{r}
 ncol(gapminder)
 
 length(gapminder)
 ```
 There are two ways to show how many variables using `ncol` and `length` functions.
-** Q4: How many rows/observations?**
+In addition, we can print `gapminder` dirctly by using `head` or `tail` function.
+```{r}
+head(gapminder)
+tail(gapminder)
+```
+
+**Q4: How many rows/observations?**
 ```{r}
 nrow(gapminder)
-```
 
-### Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?
+```
+There are 1704 observations.
+**Q5: Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?**
 ```{r}
-##whant to shows what's its class
-lapply(gapminder, class)
-## one way to shows how many rows and variables is using dim()
 dim(gapminder)
-
 ```
-If we need to deal with the vector, at that time we can not dim() function, because there might some dependence for different column. Therefore, the number of column not equal to the dimension of column
-
-
-### What data type is each variable?
+One way to shows how many rows and variables is using `dim()`.
+From the output, `gapminder` has 1704 rows and 6 columns
+If we need to deal with the vector, at that time we can not use `dim()` function, because if different columns are linear dependent, the number of columns not equal to the dimension of columns.
+More methods about `gapminder` size.
+```{r}
+summary(gapminder)
+str(gapminder)
+```
+From `summary` function, we can find the mean, median, minimum, maximum about each variable. And using `str`, we could find name, class, type of data.  
+**Q6: What data type is each variable?**
 
 ```{r}
 class(gapminder$country)
@@ -66,34 +75,46 @@ class(gapminder$lifeExp)
 class(gapminder$pop)
 class(gapminder$gdpPercap)
 ```
-## Explore individual variables
-
-### Categorial variables
-The variables for  continent
-What are possible values (or range, whichever is appropriate) of each variable?&&
-What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand
+The second way
 ```{r}
-class(gapminder$continent)
-summary(gapminder$continent)
-levels(gapminder$continent)
-nlevels(gapminder$continent)
-table(gapminder$continent)
-barplot(table(gapminder$continent))
-## From the data, it shows that Africa has the largest dataset and Oceania has the lowest data set
-
+typeof(gapminder$country) 
+typeof(gapminder$continent) 
+typeof(gapminder$year)
+typeof(gapminder$lifeExp)
+typeof(gapminder$pop)
+typeof(gapminder$gdpPercap)
 ```
-the variables for country
-What are possible values (or range, whichever is appropriate) of each variable?&&
-What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand
+The third way
 ```{r}
-class(gapminder$country)
-summary(gapminder$country)
-levels(gapminder$country)
-nlevels(gapminder$country)
-table(gapminder$country)
-barplot(table(gapminder$country))
-## From the data, it shows that Africa has the largest dataset and Oceania has the lowest data set
+str(gapminder)
+```
 
+## Explore individual variables
+There are 6 variables for gapminder, 3 quantitative variables: `year`, `lifeExp`, `gdpPercap` and `pop`; 2 categorical variable: `conti nent` and `country`.
+
+**Q1: What are possible values (or range, whichever is appropriate) of each variable?**
+##### Categorical variables #####
+The categorial variable `continent`.
+```{r}
+##The first method
+summary(gapminder$continent)
+##The secound method
+gapminder %>% 
+  distinct(continent)
+##the third method
+  unique(gapminder$continent)
+```
+There are 5 value for `continent` : Africa, Americas, Asia, Europe and Oceania.
+the Categorial variable `country`.
+
+```{r}
+##The first method
+summary(gapminder$country)
+##The secound method
+gapminder %>% 
+  distinct(country)
+##the third method
+  unique(gapminder$country)
 ```
 ### Quantitative variable
 #### Life Expectancy variable
