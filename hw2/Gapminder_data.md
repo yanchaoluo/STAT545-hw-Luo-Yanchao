@@ -248,7 +248,7 @@ There are 6 variables for gapminder, 3 quantitative variables: `year`, `lifeExp`
 
 **Q1: What are possible values (or range, whichever is appropriate) of each variable?**
 
-##### Categorical variables
+#### Categorical variables
 
 The categorial variable `continent`.
 
@@ -458,7 +458,7 @@ gapminder %>%
     ## [141] Zambia                   Zimbabwe                
     ## 142 Levels: Afghanistan Albania Algeria Angola Argentina ... Zimbabwe
 
-##### Quantitative variable
+#### Quantitative variable
 
 The Quantitative variable `lifeExp`.
 
@@ -508,7 +508,7 @@ The range for population from 60011 and 1318683096, the mean is 29601212, median
 
 We usually use mean to represent typical value, and we can estimate spread using variance or IQR. Moreover, we can plot the graph to find the distribution.
 
-##### Categorical variables
+#### Categorical variables
 
 The categorial variable `continent`.
 
@@ -645,7 +645,7 @@ barplot(table(gapminder$country))
 
 From above, we can find 12 data for each country. And from the barplot, the `country` variable should have uniform distribution.
 
-##### Quantitative variable
+#### Quantitative variable
 
 The Quantitative variable `lifeExp`.
 
@@ -708,7 +708,7 @@ Explore various plot types
 
 -   **A scatterplot of two quantitative variables.**
 
-#### Scatterplot 1: scatterplot of `lifeExp` and `gdpPercap`, only consider the continent: Asia, Europe and Americas
+##### Scatterplot 1: scatterplot of `lifeExp` and `gdpPercap`, only consider the continent: Asia, Europe and Americas
 
 Using `filter`, `select`, and `rename` dplyr.
 
@@ -729,7 +729,7 @@ p1 + geom_point(aes(color=continent,size=year), alpha = 0.5)+scale_x_log10()
 
 ![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
 
-#### Scatterplot 2: Scatterplot of `year` and `pop`, only consider three countries: United states, Canada, China
+##### Scatterplot 2: Scatterplot of `year` and `pop`, only consider three countries: United states, Canada, China
 
 ``` r
 new2<- gapminder %>% 
@@ -747,7 +747,7 @@ geom_line(aes(group = country))
 
 ![](Gapminder_data_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-26-1.png)
 
-#### Scatterplot 3: Scatterplot of `year` and `lifeExp`.
+##### Scatterplot 3: Scatterplot of `year` and `lifeExp`.
 
 Using `geom_jitter` and `geom_smooth`
 
