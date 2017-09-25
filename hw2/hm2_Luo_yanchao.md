@@ -874,7 +874,7 @@ filter(gapminder, country == c("Rwanda", "Afghanistan"))
     ## 11      Rwanda    Africa  1992  23.599  7290203  737.0686
     ## 12      Rwanda    Africa  2002  43.413  7852401  785.6538
 
-The given code is wrong, we cannot get all the data for "Rwanda", "Afghanistan". We set country == c("Rwanda", "Afghanistan"), so `country` firstly equal to "Rwanda", then if the system find the "Rwanda", then the variable `country` will automatically equal to "Afghanistan"; if the system find the "Afghanistan", then the variable `country` will automatically equal to "Rwanda", and the system will repete this steps again and again. Therefore if we use `country`==c("Rwanda", "Afghanistan"), we will lost half of the data. The right way should use `%in%` in stead of `==`.
+The given code is wrong, we cannot get all the data for "Rwanda", "Afghanistan". We set country == c("Rwanda", "Afghanistan"), so `country` firstly equal to "Rwanda", then if the system find the "Rwanda", then the variable `country` will automatically equal to "Afghanistan"; if the system find the "Afghanistan", then the variable `country` will automatically equal to "Rwanda", and the system will repeat this steps again and again. Therefore if we use `country`==c("Rwanda", "Afghanistan"), we will lost half of the data. The right way should use `%in%` in stead of `==`.
 
 ``` r
 filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
@@ -900,6 +900,6 @@ Reflection and report my process
 
 I found many problems when I created new file in homework repo, and also did not know how to create a README.md in homework2 file. Then I just google these problems and found we can create new files locally and pushed them to Github.
 
-For homework2 I try to repete what we learned in class, and also want to use some new methods. And I found another problem, there was a question about what data type is each variable. I used `class` and `typeof` to solve this problem, and got two answers for `country` variable, one is `factor`, another is `integer`. So I was confused and did not know which one is correct. when I explored the ggplot, I found many new methods in [ggplot2 tutorial](https://github.com/jennybc/ggplot2-tutorial) and tried to use them. And I learned some ggplot codes such as `geom_point()`, `facet_wrap()`, `geom_smooth`,etc.
+For homework2 I try to repeat what we learned in class, and also want to use some new methods. And I found another problem, there was a question about what data type is each variable. I used `class` and `typeof` to solve this problem, and got two answers for `country` variable, one is `factor`, another is `integer`. So I was confused and did not know which one is correct. when I explored the ggplot, I found many new methods in [ggplot2 tutorial](https://github.com/jennybc/ggplot2-tutorial) and tried to use them. And I learned some ggplot codes such as `geom_point()`, `facet_wrap()`, `geom_smooth`,etc.
 
 Moreover, I found a useful website about [dplr](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf), and tried to use `if_else` When I want to select certain data in `gapminder`. However, every time When I applied `if_else`,it always reports error in Console.
