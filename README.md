@@ -13,7 +13,10 @@
 ### Homework
 
 
-+ **[Homework1]((https://github.com/yanchaoluo/STAT545-hw01-LUO-YANCHAO)) **
--[x] finish
-+ **[Homework2](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/tree/master/hw2) **       
--[x] finish
++ **[Homework1](https://github.com/yanchaoluo/STAT545-hw01-LUO-YANCHAO) **
+
+-[x] Homework1
+
++ **[Homework2](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/tree/master/hw2)**    
+
+-[x] Homework1
