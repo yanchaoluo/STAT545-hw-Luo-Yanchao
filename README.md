@@ -8,7 +8,7 @@
 
 - **Email address:** yanchao.luo@stat.ubc.ca.
 
-- If you want to see more about me: [homework1](https://github.com/yanchaoluo/STAT545-hw01-LUO-YANCHAO).
+- If you want to know more about me: [homework1](https://github.com/yanchaoluo/STAT545-hw01-LUO-YANCHAO).
 
 ### Homework
 
