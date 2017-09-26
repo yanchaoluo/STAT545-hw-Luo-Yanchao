@@ -874,7 +874,7 @@ filter(gapminder, country == c("Rwanda", "Afghanistan"))
     ## 11      Rwanda    Africa  1992  23.599  7290203  737.0686
     ## 12      Rwanda    Africa  2002  43.413  7852401  785.6538
 
-The given code is wrong, we cannot get all the data for "Rwanda", "Afghanistan". We set country == c("Rwanda", "Afghanistan"), so `country` firstly equal to "Rwanda", then if the system find the "Rwanda", then the variable `country` will automatically equal to "Afghanistan"; if the system find the "Afghanistan", then the variable `country` will automatically equal to "Rwanda", and the system will repeat this steps again and again. Therefore if we use `country`==c("Rwanda", "Afghanistan"), we will lost half of the data. The right way should use `%in%` in stead of `==`.
+The given code is wrong, we cannot get all the data for "Rwanda", "Afghanistan". We set country == c("Rwanda", "Afghanistan"), so `country` firstly equal to "Rwanda", if the system find the "Rwanda", then the variable `country` will automatically equal to "Afghanistan"; if the system find the "Afghanistan", then the variable `country` will automatically equal to "Rwanda", and the system will repeat this steps again and again. Therefore if we use `country`==c("Rwanda", "Afghanistan"), we will lost half of the data. The right way should use `%in%` in stead of `==`.
 
 ``` r
 filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
