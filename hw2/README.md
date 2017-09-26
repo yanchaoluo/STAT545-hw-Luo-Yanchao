@@ -22,7 +22,7 @@ Hi, Everyone! Welcome to this repo for Homework02.:smile:
 * [ggplot2 tutorial](https://github.com/jennybc/ggplot2-tutorial/tree/master/ggplot2-tutorial-slides)
 * [dplr](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)
 
-### Link to my homework2
+### Links 
 Here is the link for homework2: 
 
 + [homework2 file](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/tree/master/hw2)
