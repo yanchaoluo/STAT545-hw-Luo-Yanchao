@@ -45,7 +45,7 @@ geom_jitter(aes(color=continent))+
 
 We could find the highst gdpPercap for each continent. However the lowest gdpPercap is hard to find in the graph above.
 
-I want to get one graph for each continent
+I want to get graph for each continent
 
 ``` r
 ggplot(gapminder, aes(year, gdpPercap)) +
@@ -62,7 +62,7 @@ ggplot(gapminder, aes(year, gdpPercap)) +
 
 ![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
 
-From the graphs above, we could find that except Asia and Africa, the maximum GDP per capita for continents occur in 2007. In addition, there is an increasing trend for GDP per capita of Oceania.
+From the graphs above, we could find that the maximum GDP per capita for all continents occur in 2007, except Asia and Africa. In addition, there is an increasing trend for GDP per capita of Oceania.
 
 ``` r
 p2<-gapminder %>%
@@ -82,7 +82,9 @@ ggplot(p2,aes(x=year,y=gdpPercap))+
 
     ## Warning: Using size for a discrete variable is not advised.
 
-![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png) From graph above, it shows that "blue" point is the maximum GDP per capita for each continent, and triangle is the minimum GDP per capita for each continent.
+![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
+
+From graph above, it shows that "blue" point is the maximum GDP per capita for each continent, and triangle is the minimum GDP per capita for each continent.
 
 ### **Task2: Look at the spread of GDP per capita within the continents.**
 
@@ -101,7 +103,7 @@ knitr::kable(p3)
 | Europe    |       9355.213|       13248.301|
 | Oceania   |       6358.983|        8072.258|
 
-The standard deviation of Asia is bigger than that of other continents, and European IQR is the largest. On the other hand, Afica has the smallest standard deviation and IQR.
+The standard deviation of Asia is the biggest, and Europe IQR is the largest. On the other hand, Afica has the smallest standard deviation and IQR.
 
 **Plot**
 
@@ -117,7 +119,7 @@ gapminder %>%
 
 ![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
 
-We can see from the boxplot give us the same resluts compared to the previous piping. Ggplot gives us a easy way to find the outliers.
+We can see from the boxplots giving us the same reslut as to the previous piping. Moreover, Ggplot gives us a easy way to find the outliers.
 
 ### **Task3: How is life expectancy changing over time on different continents?**
 
@@ -192,7 +194,7 @@ knitr::kable(p4)
 | Oceania   |  2002|       79.74000|        1.5500000|
 | Oceania   |  2007|       80.71950|        0.9795000|
 
-Firstly, I calculate the mean of the lifeExp for certain years of different continents, then take difference to represent how is life expectancy changing over time on different continents.
+Firstly, I calculate the mean of the lifeExp for certain years of different continents, then I take their difference to represent how is life expectancy changing over time on different continents.
 
 **Plot**
 
@@ -208,7 +210,7 @@ ggplot(gapminder, aes(x=year, y=lifeExp,color=continent))+
 
 ![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-1.png)
 
-In general, lifeExp for different continents was increasing from 1950 to 2007. Asia life expectancy rose sharply and Africa life expectancy rose smoothly.
+In general, lifeExp for different continents was increasing from 1950 to 2007. Asia life expectancy rise sharply and Africa life expectancy rise smoothly.
 
 ``` r
 ggplot(gapminder, aes(x=year, y=lifeExp,color = continent)) +
@@ -690,7 +692,7 @@ ggplot(p6, aes(population, Change_lifeExp, color= country, group=country))+
 
 ![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-15-1.png)
 
-From the graph above, most Aisa country's population remained the same or rose very slowly between 1952 and 2007. However, China and India population changed siginificantly from 1952 to 2007. Moreover, Cambodia has the largest change in life expectancy changing over time.
+From the graph above, most Aisa countries' population remained the same or rise very slowly between 1952 and 2007. However, China and India 's population changed siginificantly from 1952 to 2007. Moreover, Cambodia has the largest change in life expectancy changing over time.
 
 Only look at India and china data
 
@@ -723,7 +725,7 @@ Only look at India and china data
 
 ![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
 
-From above, these two countries Population growth rate was almost the same, but China's`Change_lifeExp` has changed a lot in certain periods. One possible reason is that there was a hugh policy or government effect at that time.
+From above, these two countries' population growth rate was almost the same, but China's`Change_lifeExp` has changed a lot in certain periods. One possible reason is that there was a huge policy or government effect at that time.
 
 But I want to do more!
 ----------------------
@@ -731,9 +733,9 @@ But I want to do more!
 Report your process
 -------------------
 
-I found two problems in this assignment
+I found two problems in this assignment.
 
-1.  For task 4 I tried many times to plot weighted mean and mean in one graph. But I got very strange output, `theme_bw` and `theme` do not work in here. Here is my wrong R code.
+Firstly, for task 4 I tried many times to plot weighted mean and mean in one graph. But I got very strange output, `theme_bw` and `theme` do not work in here. Here is my wrong R code.
 
 ``` r
 ggplot(p5, aes(year, weight_mean))+
@@ -744,7 +746,7 @@ ggplot(p5, aes(year, weight_mean))+
 
 ![](hw3_Luo_yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
 
-1.  For task 5, I tried to use `ifese` when I wanted to find the difference of lifeExp and the output shows incorrect. I do not know how to use `ifese` in the right way, could someone can explain to me? Here is my wrong `ifese` R code
+Another issue is for task 5, I tried to use `ifese` when I want to find the difference of lifeExp, but the output shows incorrect. I do not know how to use `ifese` in the right way, could someone can explain to me? Here is my wrong `ifese` R code
 
 ``` r
 p9<-gapminder %>% 
@@ -770,7 +772,7 @@ p9
     ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414  22.227415
     ## # ... with 386 more rows, and 1 more variables: Change_lifeExp <dbl>
 
-Here is the right R about difference of life expectancy by using `c()`
+Here is the right R code about difference of life expectancy by using `c()`
 
 ``` r
 p10<-gapminder %>% 
