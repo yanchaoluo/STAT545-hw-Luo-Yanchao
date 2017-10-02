@@ -17,7 +17,7 @@ Hi, Everyone! Welcome to this repo for Homework03.:smile:
 
 ### Main References
 * [ggplot2 tutorial](https://github.com/jennybc/ggplot2-tutorial/tree/master/ggplot2-tutorial-slides)
-* [useful lecture notes]https://stat545.com/cm008-notes_and_exercises.html
+* [useful lecture notes](https://stat545.com/cm008-notes_and_exercises.html)
 
 ### Links 
 Here is the link for homework3: 
