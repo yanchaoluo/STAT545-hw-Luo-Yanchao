@@ -211,9 +211,9 @@ From above, these two countries Population growth rate was almost the same, but 
 
 ##Report your process
 
-I found two problems in this assignment
+I found two problems in this assignment.
 
-1. For task 4 I tried many times to plot weighted mean and mean in one graph. But I got very strange output, `theme_bw` and `theme` do not work in here. Here is my wrong R code.
+Firstly, for task 4 I tried many times to plot weighted mean and mean in one graph. But I got very strange output, `theme_bw` and `theme` do not work in here. Here is my wrong R code.
 
 ```{r, message=FALSE, warning=FALSE}
 ggplot(p5, aes(year, weight_mean))+
@@ -223,7 +223,7 @@ ggplot(p5, aes(year, weight_mean))+
  
 ```
 
-2. For task 5, I tried to use `ifese` when I wanted to find the difference of lifeExp and the output shows incorrect. I do not know how to use `ifese` in the right way, could someone can explain to me?
+Another issue is that for task 5, I tried to use `ifese` when I wanted to find the difference of lifeExp and the output shows incorrect. I do not know how to use `ifese` in the right way, could someone can explain to me?
 Here is my wrong `ifese` R code
 ```{r}
 p9<-gapminder %>% 
