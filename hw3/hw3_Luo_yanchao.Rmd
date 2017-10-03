@@ -5,7 +5,7 @@ output: github_document
 
 ---
 
-##Load the package:
+## Load the package:
 
 ```{r}
 suppressPackageStartupMessages(library(tidyverse))
@@ -256,9 +256,13 @@ library(xtable)
 print(xtable(p1), type = "html")
 ```
 
+By using `xtable`, it can get the same result in Task 2. 
 
 
-## **Reflection and report my process**
+
+
+## Reflection and report my process
+
 
 I found three problems in this assignment.
 
