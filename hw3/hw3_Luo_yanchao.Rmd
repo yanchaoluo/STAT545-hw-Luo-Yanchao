@@ -256,6 +256,7 @@ library(xtable)
 print(xtable(p1), type = "html")
 ```
 
+
 ## Report your process
 
 I found three problems in this assignment.
