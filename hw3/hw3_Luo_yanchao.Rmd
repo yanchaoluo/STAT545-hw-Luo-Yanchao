@@ -257,7 +257,7 @@ print(xtable(p1), type = "html")
 ```
 
 
-## Report your process
+## Reflection and report my process
 
 I found three problems in this assignment.
 
