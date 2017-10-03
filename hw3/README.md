@@ -6,11 +6,11 @@ output: github_document
 Hi, Everyone! Welcome to this repo for Homework03.:smile:
 
 ### Homework03 Status
-- [x] Task 1
-- [x] Task 2
-- [x] Task 3
-- [x] Task 4
-- [x] Task 5
+- [x] Task 1 Get the maximum and minimum of GDP per capita for all continents.
+- [x] Task 2 Look at the spread of GDP per capita within the continents.
+- [x] Task 3 How is life expectancy changing over time on different continents?
+- [x] Task 4 Compute a weighted mean, weighting by population of life expectancy for different years
+- [x] Task 5 Compared the population and life expectancy changing over time for different Asia's countries
 - [x] But I want do more !
 - [x] Reflection and Report my process
 - [ ] Reviewed by peers 

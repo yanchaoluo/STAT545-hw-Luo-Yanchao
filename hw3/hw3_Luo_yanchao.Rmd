@@ -167,6 +167,7 @@ ggplot(p5, aes(year, weight_mean))+
    theme( axis.title = element_text(size=15))
 ```
 
+
 From two graphs above, we could find the mean and weighted mean are slightly different, especially in year 1960.
 
 ### **Task5: Compared the population and life expectancy changing over time for different Asia's countries**
