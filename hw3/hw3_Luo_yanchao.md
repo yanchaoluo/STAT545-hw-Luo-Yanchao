@@ -37,7 +37,7 @@ print(xtable(p1), type = "html")
 ```
 
 <!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Mon Oct 02 23:33:53 2017 -->
+<!-- Mon Oct 02 23:37:13 2017 -->
 <table border="1">
 <tr>
 <th>
@@ -467,7 +467,7 @@ print(xtable(p1), type = "html")
 ```
 
 <!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Mon Oct 02 23:34:03 2017 -->
+<!-- Mon Oct 02 23:37:22 2017 -->
 <table border="1">
 <tr>
 <th>
@@ -553,8 +553,8 @@ Oceania
 </td>
 </tr>
 </table>
-Reflection and report my process
---------------------------------
+**Reflection and report my process**
+------------------------------------
 
 I found three problems in this assignment.
 
