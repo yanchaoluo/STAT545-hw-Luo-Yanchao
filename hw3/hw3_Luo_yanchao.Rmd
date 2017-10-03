@@ -23,6 +23,14 @@ p1<- gapminder %>%
 knitr::kable(p1)
 ```
 
+Using `xtable` to show the result
+
+```{r, results='asis'}
+library(xtable)
+print(xtable(p1), type = "html")
+```
+
+We could find the largest and smallest gdpPercap
 **Plot**
 
 ```{r}
@@ -177,7 +185,7 @@ p6<-gapminder %>%
   filter(continent=="Asia") %>% 
   group_by(country) %>% 
   mutate(population=pop/(10^6), Change_lifeExp = c( 0, diff(lifeExp)))
-knitr::kable(p6)
+knitr::kable(head(p6))
 ```
 
 **Plot**
@@ -209,12 +217,48 @@ p8
 
 From above, these two countries' population growth rate was almost the same, but China's`Change_lifeExp` has changed a lot in certain periods. One possible reason is that there was a huge policy or government effect at that time.
 
+##But I want do more！
 
-## But I want to do more!
+```{r}
+library(ggplot2)
+suppressMessages(library(dplyr))
+```
+
+#### Layout stretch goal
+Using Task 1 for example
+
+```{r}
+library(ggplot2)
+suppressMessages(library(dplyr))
+```
+
+```{r results = 'asis', echo=FALSE} 
+gtbl <- tbl_df(gapminder)
+p1<- gapminder %>%
+  group_by(continent) %>% 
+  summarise(min_gdppercap=min(gdpPercap), max_gdppercap=max(gdpPercap))
+knitr::kable(p1)
+
+ggplot(gtbl, aes(x = continent, y = gdpPercap, color = continent)) +
+  geom_point() +
+  ggtitle("GDP per cap by continent") +
+  theme_bw() +
+  theme(axis.title = element_text(size=14))+
+  scale_colour_discrete("Continents of\n the World")
+```
+
+#### Table stretch goal
+
+Using `xtable` to show the result
+
+```{r, results='asis'}
+library(xtable)
+print(xtable(p1), type = "html")
+```
 
 ##Report your process
 
-I found two problems in this assignment.
+I found three problems in this assignment.
 
 Firstly, for task 4 I tried many times to plot weighted mean and mean in one graph. But I got very strange output, `theme_bw` and `theme` do not work in here. Here is my wrong R code.
 
@@ -226,8 +270,9 @@ ggplot(p5, aes(year, weight_mean))+
  
 ```
 
-Another issue is for task 5, I tried to use `ifese` when I want to find the difference of lifeExp, but the output shows incorrect. I do not know how to use `ifese` in the right way, could someone can explain to me?
+Another issue is for task 5, I tried to use `ifese` when I want to find the difference of lifeExp, but the output shows incorrect. I do not know how to use `ifese` in the right way, could someone explain to me?
 Here is my wrong `ifese` R code
+
 ```{r}
 p9<-gapminder %>% 
   filter(continent=="Asia") %>% 
@@ -235,7 +280,9 @@ p9<-gapminder %>%
   mutate(population=pop/(10^6), Change_lifeExp = ifelse(year==1952, 0,  diff(lifeExp)))
 p9
 ```
+
 Here is the right R code about difference of life expectancy by using `c()`
+
 ```{r}
 p10<-gapminder %>% 
   filter(continent=="Asia") %>% 
@@ -243,4 +290,22 @@ p10<-gapminder %>%
   mutate(population=pop/(10^6), Change_lifeExp = c( 0, diff(lifeExp)))
 p10
 ```
+
+Moreover, for task 2, I try to use `stargazer` packages, and I find that there is no data showing up in the table. Here is my R below.
+
+```{r results = "asis"}
+## First time need to install `stargazer`
+## install.packages("stargazer")
+library(stargazer)
+pa<- gapminder %>% 
+  group_by(continent)
+stargazer(pa, type = "html",
+ title = "Table with stargazer")
+```
+
+Task 1 and 2 are straight forward, however I spent many time on task 4 ploting. For this homework I find two useful website.
+
+1. [stargazer](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf)
+
+2. [R markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf).
 
