@@ -217,7 +217,7 @@ p8
 
 From above, these two countries' population growth rate was almost the same, but China's`Change_lifeExp` has changed a lot in certain periods. One possible reason is that there was a huge policy or government effect at that time.
 
-##But I want do more！
+## But I want do more！
 
 ```{r}
 library(ggplot2)
@@ -256,7 +256,7 @@ library(xtable)
 print(xtable(p1), type = "html")
 ```
 
-##Report your process
+## Report your process
 
 I found three problems in this assignment.
 
