@@ -273,22 +273,22 @@ ggplot(p5, aes(year, weight_mean))+
 Another issue is for task 5, I tried to use `ifese` when I want to find the difference of lifeExp, but the output shows incorrect. I do not know how to use `ifese` in the right way, could someone explain to me?
 Here is my wrong `ifese` R code
 
-```{r}
+```{r results = 'asis'}
 p9<-gapminder %>% 
   filter(continent=="Asia") %>% 
   group_by(country) %>% 
   mutate(population=pop/(10^6), Change_lifeExp = ifelse(year==1952, 0,  diff(lifeExp)))
-p9
+knitr::kable(head(p9))
 ```
 
 Here is the right R code about difference of life expectancy by using `c()`
 
-```{r}
+```{r results = 'asis'}
 p10<-gapminder %>% 
   filter(continent=="Asia") %>% 
   group_by(country) %>% 
   mutate(population=pop/(10^6), Change_lifeExp = c( 0, diff(lifeExp)))
-p10
+knitr::kable(head(p10))
 ```
 
 Moreover, for task 2, I try to use `stargazer` packages, and I find that there is no data showing up in the table. Here is my R below.

@@ -37,7 +37,7 @@ print(xtable(p1), type = "html")
 ```
 
 <!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Mon Oct 02 23:17:24 2017 -->
+<!-- Mon Oct 02 23:23:23 2017 -->
 <table border="1">
 <tr>
 <th>
@@ -467,7 +467,7 @@ print(xtable(p1), type = "html")
 ```
 
 <!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Mon Oct 02 23:17:40 2017 -->
+<!-- Mon Oct 02 23:23:33 2017 -->
 <table border="1">
 <tr>
 <th>
@@ -576,24 +576,17 @@ p9<-gapminder %>%
   filter(continent=="Asia") %>% 
   group_by(country) %>% 
   mutate(population=pop/(10^6), Change_lifeExp = ifelse(year==1952, 0,  diff(lifeExp)))
-p9
+knitr::kable(head(p9))
 ```
 
-    ## # A tibble: 396 x 8
-    ## # Groups:   country [33]
-    ##        country continent  year lifeExp      pop gdpPercap population
-    ##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>      <dbl>
-    ##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453   8.425333
-    ##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530   9.240934
-    ##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007  10.267083
-    ##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971  11.537966
-    ##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811  13.079460
-    ##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134  14.880372
-    ##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114  12.881816
-    ##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959  13.867957
-    ##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414  16.317921
-    ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414  22.227415
-    ## # ... with 386 more rows, and 1 more variables: Change_lifeExp <dbl>
+| country     | continent |  year|  lifeExp|       pop|  gdpPercap|  population|  Change\_lifeExp|
+|:------------|:----------|-----:|--------:|---------:|----------:|-----------:|----------------:|
+| Afghanistan | Asia      |  1952|   28.801|   8425333|   779.4453|    8.425333|            0.000|
+| Afghanistan | Asia      |  1957|   30.332|   9240934|   820.8530|    9.240934|            1.665|
+| Afghanistan | Asia      |  1962|   31.997|  10267083|   853.1007|   10.267083|            2.023|
+| Afghanistan | Asia      |  1967|   34.020|  11537966|   836.1971|   11.537966|            2.068|
+| Afghanistan | Asia      |  1972|   36.088|  13079460|   739.9811|   13.079460|            2.350|
+| Afghanistan | Asia      |  1977|   38.438|  14880372|   786.1134|   14.880372|            1.416|
 
 Here is the right R code about difference of life expectancy by using `c()`
 
@@ -602,24 +595,17 @@ p10<-gapminder %>%
   filter(continent=="Asia") %>% 
   group_by(country) %>% 
   mutate(population=pop/(10^6), Change_lifeExp = c( 0, diff(lifeExp)))
-p10
+knitr::kable(head(p10))
 ```
 
-    ## # A tibble: 396 x 8
-    ## # Groups:   country [33]
-    ##        country continent  year lifeExp      pop gdpPercap population
-    ##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>      <dbl>
-    ##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453   8.425333
-    ##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530   9.240934
-    ##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007  10.267083
-    ##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971  11.537966
-    ##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811  13.079460
-    ##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134  14.880372
-    ##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114  12.881816
-    ##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959  13.867957
-    ##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414  16.317921
-    ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414  22.227415
-    ## # ... with 386 more rows, and 1 more variables: Change_lifeExp <dbl>
+| country     | continent |  year|  lifeExp|       pop|  gdpPercap|  population|  Change\_lifeExp|
+|:------------|:----------|-----:|--------:|---------:|----------:|-----------:|----------------:|
+| Afghanistan | Asia      |  1952|   28.801|   8425333|   779.4453|    8.425333|            0.000|
+| Afghanistan | Asia      |  1957|   30.332|   9240934|   820.8530|    9.240934|            1.531|
+| Afghanistan | Asia      |  1962|   31.997|  10267083|   853.1007|   10.267083|            1.665|
+| Afghanistan | Asia      |  1967|   34.020|  11537966|   836.1971|   11.537966|            2.023|
+| Afghanistan | Asia      |  1972|   36.088|  13079460|   739.9811|   13.079460|            2.068|
+| Afghanistan | Asia      |  1977|   38.438|  14880372|   786.1134|   14.880372|            2.350|
 
 Moreover, for task 2, I try to use `stargazer` packages, and I find that there is no data showing up in the table. Here is my R below.
 
