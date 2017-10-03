@@ -1,6 +1,5 @@
-hm3
+Homework 3
 ================
-yanchao
 
 Load the package:
 -----------------
@@ -38,7 +37,7 @@ print(xtable(p1), type = "html")
 ```
 
 <!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Mon Oct 02 23:09:07 2017 -->
+<!-- Mon Oct 02 23:17:24 2017 -->
 <table border="1">
 <tr>
 <th>
@@ -468,7 +467,7 @@ print(xtable(p1), type = "html")
 ```
 
 <!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Mon Oct 02 23:09:16 2017 -->
+<!-- Mon Oct 02 23:17:40 2017 -->
 <table border="1">
 <tr>
 <th>

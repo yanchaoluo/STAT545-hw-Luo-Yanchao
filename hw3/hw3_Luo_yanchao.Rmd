@@ -1,6 +1,6 @@
 ---
-title: "hm3"
-author: "yanchao"
+title: "Homework 3"
+
 output: github_document
 
 ---
@@ -303,7 +303,7 @@ stargazer(pa, type = "html",
  title = "Table with stargazer")
 ```
 
-Task 1 and 2 are straight forward, however I spent many time on task 4 ploting. For this homework I find two useful website.
+Task 1 and 2 are straight forward, however I spent many time on task 4 ploting. For this homework I find two useful website. 
 
 1. [stargazer](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf)
 
