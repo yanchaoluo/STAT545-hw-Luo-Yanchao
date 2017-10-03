@@ -19,4 +19,8 @@
 
 + **[Homework2](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/tree/master/hw2)**    
 
-- [x] Homework1
+- [x] Homework2
+
++ **[Homework3](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/tree/master/hw3)**    
+
+- [x] Homework3
