@@ -1,6 +1,6 @@
 
 ---
-title: "Cheetshet for tidyr function"
+title: "Cheatsheet for tidyr function"
 
 output: github_document
 ---

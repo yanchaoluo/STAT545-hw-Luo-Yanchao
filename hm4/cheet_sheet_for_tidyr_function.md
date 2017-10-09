@@ -1,4 +1,4 @@
-Cheetshet for tidyr function
+Cheatsheet for tidyr function
 ================
 
 Main Functions
