@@ -20,7 +20,7 @@ General data reshaping and relationship to aggregation
 
 -   Make you own cheatsheet.
 
-[link]()
+[link](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hm4/cheet_sheet_for_tidyr_function.md)
 
 ### Activity \#2
 
