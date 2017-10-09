@@ -227,7 +227,7 @@ Japan
 </tr>
 </tbody>
 </table>
-From the table above, it very easy to compare the life expectancy for different countries in different years. And the same time, it can find some trends in each country's column. Moreover, I find the highest life expectancy for these three countries are in 2007.
+From the table above, it is very easy to compare the life expectancy of different countries in different years. And the same time, I can find some trends in each column of each country. Moreover, I also find the highest life expectancy for all these three countries appeared in 2007.
 
 ``` r
 p1 %>% 
@@ -245,7 +245,7 @@ p1 %>%
 
 ![](hm04_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-3-1.png)
 
-From the graph above, it shows that the lfe expectancy of Japan are much higher than China in 1960. And China's life expectancy increased dramatically. Therefore, they almost have the same Life expectancy at the end of 2007.
+From the graph above, it shows that the lfe expectancy of Japan are much higher than China in 1960. However, China's life expectancy increased dramatically after 1960. Therefore, they almost havd the same Life expectancy at the end of 2007.
 
 ``` r
 p1 %>% 
@@ -263,7 +263,7 @@ p1 %>%
 
 ![](hm04_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
 
-We could find that life exoecatancy of both China and Canada rose smoothly before 1965, and had a huge change after 1965.
+We could find that Life Expectancy of both China and Canada rose smoothly before 1965, and had a huge change after 1965.
 
 ``` r
 p1 %>% 
@@ -281,7 +281,7 @@ p1 %>%
 
 ![](hm04_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
 
-When we compared life expectancy in Japan and Life expectancy, they increased at certain ratio from 1960 to 2007.
+When we compared Life Expectancy in Japan and Life Expectancy in Canada, they almost increased at linear ratio from 1960 to 2007.
 
 Join, merge, look up
 --------------------
@@ -316,7 +316,7 @@ knitr::kable(more_info)
 | Denmark            |     1| Copenhagen    | Danish           |
 | Vatican City State |     0| Vatican       | Vatican          |
 
-I found a dataframe with extra three columns, which includes NATO, capital city of the country and primary language spoken in a country.
+I found a dataframe with other three columns, which includes NATO, capital city of the country and primary language spoken in a country.
 
 #### left\_join
 
@@ -343,7 +343,7 @@ knitr::kable(head(leftjoin))
 | Afghanistan | Asia      |  1972|   36.088|  13079460|   739.9811|    NA| NA            | NA               |
 | Afghanistan | Asia      |  1977|   38.438|  14880372|   786.1134|    NA| NA            | NA               |
 
-`left_join` includes all observations in `gapminder`, regardless of whether they match or not. There are a lot of NAs but we don’t lose observations from your primary `gapminder`.
+`left_join` includes all observations in `gapminder`. Regardless of whether they match or not, there are a lot of NAs. But we don’t lose any observations from our primary `gapminder`.
 
 #### right\_join
 
@@ -497,11 +497,11 @@ knitr::kable(rightjoin)
 | Denmark            | Europe    |  2007|  78.33200|     5468120|  35278.4187|     1| Copenhagen    | Danish           |
 | Vatican City State | NA        |    NA|        NA|          NA|          NA|     0| Vatican       | Vatican          |
 
-`right_join` includes all observations in `more_info`. It’s equivalent to left\_join(y, x), but the columns will be ordered differently.
+`right_join` includes all observations in `more_info`. It’s equivalent to left\_join(y, x), but the columns will order differently.
 
 #### full\_join
 
-`full_join()` includes all observations from x and y.
+`full_join()` includes all observations both x and y.
 
 ``` r
 fulljoin<- gapminder %>% 
@@ -526,11 +526,11 @@ knitr::kable(head(fulljoin))
 | Afghanistan | Asia      |  1972|   36.088|  13079460|   739.9811|    NA| NA            | NA               |
 | Afghanistan | Asia      |  1977|   38.438|  14880372|   786.1134|    NA| NA            | NA               |
 
-`full_join` will combine two dataset, so this is the reason why there are many "NA".
+`full_join` will combine two datasets, which is the reason why there are many "NA".
 
 #### semi\_join
 
-`semi_join(x, y)` keeps all observations in x that have a match in y.
+`semi_join(x, y)` keeps all observations in x that match in y.
 
 ``` r
 semijoin<- gapminder %>% 
@@ -710,11 +710,11 @@ knitr::kable(semijoin2)
 | Finland |     0| Helsinki      | Finnish          |
 | Denmark |     1| Copenhagen    | Danish           |
 
-This time only keep the data in `more_info` and none of the columns are from `gapminder`. Vatican City State is dropped.
+This time I only keep the data in `more_info` and none of the columns are from `gapminder`. And Vatican City State is dropped.
 
 ### anti\_join
 
-`anti_join(x, y)` drops all observations in x that have a match in y
+`anti_join(x, y)` drops all observations in x that match in y
 
 ``` r
 antijoin<- anti_join(more_info,gapminder, by="country")
@@ -731,11 +731,11 @@ knitr::kable(antijoin)
 |:-------------------|-----:|:--------------|:-----------------|
 | Vatican City State |     0| Vatican       | Vatican          |
 
-The table above will give us Vatican city of State.
+The table above gives us Vatican city of State.
 
 ### Inner\_join
 
-`inner_join(x, y)`: Return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned. This is a mutating join.
+`inner_join(x, y)`: Return all rows from x where there are matching values in y, and all columns of x and y. If there are multiple matches between x and y, all combination of the matches are returned. This is a mutating join.
 
 ``` r
 innerjoin<- inner_join(gapminder,more_info, by="country")
@@ -883,13 +883,13 @@ knitr::kable(innerjoin)
 | Japan   | Asia      |  2002|  82.00000|   127065841|  28604.5919|     0| Tokyo         | Japanese         |
 | Japan   | Asia      |  2007|  82.60300|   127467972|  31656.0681|     0| Tokyo         | Japanese         |
 
-Vatican City State is dropped, since `inner_join` keeps the information in bote dataframe.
+Vatican City State is dropped, since `inner_join` keeps the information in both dataframes.
 
 Report of Process
 -----------------
 
-In this homework 04, firstly I found a intersting website about ["Html" table](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html). So I try to use some functions in part 1 activity \#2. I use some functions in `kableExtra` to hightlight the characteristic value such as the highest/ lowest life expectancy for the country. I think this is a nice try but I don't know why it not show up on the github. I find that cheet sheet is useful, which can remind me of the most common tidyr functions. Moreover I found some useful websites about `tidyr` [lotr-tidy](https://github.com/jennybc/lotr-tidy); [tidyr](https://rpubs.com/bradleyboehmke/data_wrangling).
+In this homework 04, firstly I found an interesting website about ["Html" table](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html). So I try to use some of their functions in part 1 activity \#2. I use some functions in `kableExtra` to hightlight the characteristic value such as the highest/ lowest life expectancy of the country. I think it is a nice try, but I don't know why it doesn't show up in the github. I find that cheatsheet is useful, which can remind me of the most common tidyr functions. Moreover I found some useful websites about `tidyr` [lotr-tidy](https://github.com/jennybc/lotr-tidy); [tidyr](https://rpubs.com/bradleyboehmke/data_wrangling).
 
-For the second part, I select the activity \#2. I collect some extra new information for certain countries, and use the `left_jion`, `right_join`, `full_join`, etc. Following the website [Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) can easily apply `_jion` function.
+For the second part, I select the activity \#2. I collect some extra new information for certain countries, and use the `left_jion`, `right_join`, `full_join`, etc. Following the website [Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) I can easily apply `_jion` function.
 
-I have a question about activity \#2 in part 1. I do not know how to compare life expectancy for different countries side by side. In addition, I try to use `countrycode`, but I fail to find extra information only for some countries, which I am interested in.
+Finnally, I have a question about activity \#2 in part 1. I do not know how to compare life expectancy for different countries side by side. In addition, I try to use `countrycode`, but I failed to find extra information for some countries, which I am interested in.
