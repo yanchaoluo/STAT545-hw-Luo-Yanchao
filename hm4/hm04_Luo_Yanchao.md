@@ -526,6 +526,8 @@ knitr::kable(head(fulljoin))
 | Afghanistan | Asia      |  1972|   36.088|  13079460|   739.9811|    NA| NA            | NA               |
 | Afghanistan | Asia      |  1977|   38.438|  14880372|   786.1134|    NA| NA            | NA               |
 
+`full_join` will combine two dataset, so this is the reason why there are many "NA".
+
 #### semi\_join
 
 `semi_join(x, y)` keeps all observations in x that have a match in y.
@@ -679,7 +681,7 @@ knitr::kable(semijoin)
 | Japan   | Asia      |  2002|  82.00000|   127065841|  28604.5919|
 | Japan   | Asia      |  2007|  82.60300|   127467972|  31656.0681|
 
-The table above only keep the data in `gapminder` and none of the columns are from `more_info`. Vatican City State will not show up in above table, since Vatican City State only in the data `more_info`.
+The table above only keep the data in `gapminder` and none of the columns are from `more_info`. Vatican City State will not show up in the table above, since Vatican City State only in the data `more_info`.
 
 ``` r
 semijoin2<- semi_join(more_info,gapminder)
@@ -882,3 +884,12 @@ knitr::kable(innerjoin)
 | Japan   | Asia      |  2007|  82.60300|   127467972|  31656.0681|     0| Tokyo         | Japanese         |
 
 Vatican City State is dropped, since `inner_join` keeps the information in bote dataframe.
+
+Report of Process
+-----------------
+
+In this homework 04, firstly I found a intersting website about ["Html" table](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html). So I try to use some functions in part 1 activity \#2. I use some functions in `kableExtra` to hightlight the characteristic value such as the highest/ lowest life expectancy for the country. I think this is a nice try but I don't know why it not show up on the github. I find that cheet sheet is useful, which can remind me of the most common tidyr functions. Moreover I found some useful websites about `tidyr` [lotr-tidy](https://github.com/jennybc/lotr-tidy); [tidyr](https://rpubs.com/bradleyboehmke/data_wrangling).
+
+For the second part, I select the activity \#2. I collect some extra new information for certain countries, and use the `left_jion`, `right_join`, `full_join`, etc. Following the website [Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) can easily apply `_jion` function.
+
+I have a question about activity \#2 in part 1. I do not know how to compare life expectancy for different countries side by side. In addition, I try to use `countrycode`, but I fail to find extra information only for some countries, which I am interested in.

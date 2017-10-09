@@ -82,7 +82,7 @@ knitr::kable(new)
 |  2016| Qtr.3   |     36|
 |  2017| Qtr.3   |     37|
 
-### `seperate()`
+### `seperate()` function
 
 **Description** Many times a single column variable will capture multiple variables, so `seperate` function will split a single variable into two.
 
@@ -125,7 +125,7 @@ knitr::kable(new2)
 |  2016| Qtr            | 3            |     36|
 |  2017| Qtr            | 3            |     37|
 
-### `seperate()`
+### `seperate()` function
 
 **Description** There may be a time in which we would like to combine the values of two variables, so `unite` function will merge two variables into one.
 
