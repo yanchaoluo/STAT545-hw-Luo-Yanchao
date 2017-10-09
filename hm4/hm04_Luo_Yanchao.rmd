@@ -1,17 +1,25 @@
 ---
 title: "homework04"
 output: github_document
+
 ---
 ## Load the data 
 
 ```{r}
 suppressPackageStartupMessages(library(tidyverse))  
 suppressPackageStartupMessages(library(gapminder))
+### First time install.packages("kableExtra")
 suppressPackageStartupMessages(library(kableExtra))
 
 ```
 
 ## General data reshaping and relationship to aggregation
+
+### Activity #1
+
++ Make you own cheatsheet.
+
+
 
 ### Activity #2
 
@@ -24,11 +32,152 @@ p1<- gapminder %>%
   filter(country %in% c("China", "Canada", "Japan")) %>% 
   select(country,lifeExp, year) %>% 
   spread(key =country, value =lifeExp)
-knitr::kable(p1) %>% 
+knitr::kable(p1,format = "html") %>% 
   kable_styling(bootstrap_options = c("striped", "hover")) %>% 
-    row_spec(12, bold = T, color = "white", background = "#D7261E")
+    row_spec(12, bold = T, color = "white", background = "#D7261E") %>% 
+    row_spec(1, bold = T, color = "white", background = "#D7261E")
+
 ```
 
 From the table above, it very easy to compare the life expectancy for different countries in different years. And the same time, it can find some trends in each country's column. Moreover, I find the highest life expectancy for these three countries are in 2007.
 
+```{r}
+p1 %>% 
+  ggplot(aes(x = China, y = Japan)) +
+  geom_point(size= 4,aes(color = year), alpha = 0.9) +
+  theme_bw() +
+  theme(axis.title.x = element_text(size=11),
+        axis.title.y = element_text(size=11),
+        axis.title = element_text(size = 15, face = "bold"),
+        plot.title = element_text(hjust = 0.8))+
+  ggtitle("Compared the Life Expectancy of China and Japan")+
+  labs( y = "Life Expectancy in Japan", x = "Life Expectancy in China")+
+  scale_color_continuous("year")
+```
 
+From the graph above, it shows that the lfe expectancy of Japan are much higher than China in 1960. And China's life expectancy increased dramatically. Therefore, they almost have the same Life expectancy at the end of 2007.
+
+```{r}
+p1 %>% 
+  ggplot(aes(x = China, y = Canada)) +
+  geom_point(size= 4,aes(color = year), alpha = 0.9) +
+ theme_bw() +
+  theme(axis.title.x = element_text(size=11),
+        axis.title.y = element_text(size=11),
+        axis.title = element_text(size = 15, face = "bold"),
+        plot.title = element_text(hjust = 0.8))+
+  ggtitle("Compared the Life Expectancy of China and Canada")+
+  labs( y = "Life Expectancy in Canada", x = "Life Expectancy in China")+
+  scale_color_continuous("year")
+```
+
+We could find that life exoecatancy of both China and Canada rose smoothly before 1965, and had a huge change after 1965.
+
+```{r}
+p1 %>% 
+  ggplot(aes(x = Japan, y = Canada)) +
+  geom_point(size= 4,aes(color = year), alpha = 0.9) +
+   theme_bw() +
+  theme(axis.title.x = element_text(size=11),
+        axis.title.y = element_text(size=11),
+        axis.title = element_text(size = 15, face = "bold"),
+        plot.title = element_text(hjust = 0.8))+
+  ggtitle("Compared the Life Expectancy of Japan and Canada")+
+  labs( y = "Life Expectancy in Canada", x = "Life Expectancy in Japan")+
+  scale_color_continuous("year")
+```
+
+When we compared life expectancy in Japan and Life expectancy, they increased at certain ratio from 1960 to 2007.
+
+
+## Join, merge, look up
+
+### Activity #1
+
++ Create a second data frame, complementary to Gapminder. Join this with (part of) Gapminder using a  dplyr join function and make some observations about the process and result. Explore the different types of joins. Examples of a second data frame you could build:
+    - One row per country, a country variable and one or more variables with extra info, such as language spoken, NATO membership, national animal, or capitol city. If you really want to be helpful, you could attempt to make a pull request to resolve this issue, where I would like to bring ISO country codes into the gapminder package.
+    - One row per continent, a continent variable and one or more variables with extra info, such as northern versus southern hemisphere.
+
+```{r}
+country<-c("China","Canada","Germany","Japan","Brazil","Italy","Greece","Iceland","Austria","Finland","Denmark","Vatican City State")
+NATO<-c(0,1,1,0,0,1,1,1,0,0,1,0)
+capitol_city<-c("Beijing","Ottawa","Berlin","Tokyo","Brasília","Rome", "Athens", "Reykjavík","Canberra","Helsinki","Copenhagen","Vatican")
+language_spoken<-c("Mandarin", "English"," German","Japanese", "Portuguese", "Italian", "Greek","Icelandic","English", "Finnish ", "Danish","Vatican")
+more_info <- data.frame(country, NATO, capitol_city,language_spoken)
+knitr::kable(more_info)
+```
+
+I found a dataframe with extra three columns, which includes NATO, capital city of the country and primary language spoken in a country.
+
+#### left_join
+
+```{r}
+leftjoin<- gapminder %>% 
+  left_join(more_info)
+knitr::kable(head(leftjoin))
+```
+
+`left_join` includes all observations in `gapminder`, regardless of whether they match or not. There are a lot of NAs but we don’t lose observations from your primary `gapminder`.
+
+
+#### right_join
+
+```{r}
+rightjoin<- gapminder %>% 
+  right_join(more_info)
+knitr::kable(rightjoin)
+```
+
+`right_join` includes all observations in `more_info`. It’s equivalent to left_join(y, x), but the columns will be ordered differently.
+
+#### full_join
+
+`full_join()` includes all observations from x and y.
+
+```{r}
+fulljoin<- gapminder %>% 
+  full_join(more_info)
+knitr::kable(head(fulljoin))
+```
+
+#### semi_join
+
+`semi_join(x, y)` keeps all observations in x that have a match in y.
+
+```{r}
+semijoin<- gapminder %>% 
+  semi_join(more_info)
+knitr::kable(semijoin)
+```
+
+The table above only keep the data in `gapminder` and none of the columns are from `more_info`. Vatican City State will not show up in above table, since Vatican City State only in the data `more_info`.
+
+```{r}
+semijoin2<- semi_join(more_info,gapminder)
+knitr::kable(semijoin2)
+```
+
+This time only keep the data in `more_info` and none of the columns are from `gapminder`. Vatican City State is dropped.
+
+### anti_join
+
+`anti_join(x, y)` drops all observations in x that have a match in y
+
+```{r}
+antijoin<- anti_join(more_info,gapminder, by="country")
+knitr::kable(antijoin)
+```
+
+The table above will give us Vatican city of State.
+
+
+### Inner_join
+
+`inner_join(x, y)`: Return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned. This is a mutating join.
+
+```{r}
+innerjoin<- inner_join(gapminder,more_info, by="country")
+knitr::kable(innerjoin)
+```
+
+Vatican City State is dropped, since `inner_join` keeps the information in bote dataframe.
