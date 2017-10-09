@@ -20,6 +20,8 @@ General data reshaping and relationship to aggregation
 
 -   Make you own cheatsheet.
 
+[link]()
+
 ### Activity \#2
 
 -   Make a tibble with one row per year and columns for life expectancy for two or more countries.
@@ -33,7 +35,8 @@ p1<- gapminder %>%
   spread(key =country, value =lifeExp)
 knitr::kable(p1,format = "html") %>% 
   kable_styling(bootstrap_options = c("striped", "hover")) %>% 
-    row_spec(12, bold = T, color = "white", background = "#D7261E")
+    row_spec(12, bold = T, color = "white", background = "#D7261E") %>% 
+    row_spec(1, bold = T, color = "white", background = "#D7261E")
 ```
 
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
@@ -55,16 +58,16 @@ Japan
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;color: white;background-color: #D7261E;">
 1952
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;color: white;background-color: #D7261E;">
 68.750
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;color: white;background-color: #D7261E;">
 44.00000
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;color: white;background-color: #D7261E;">
 63.030
 </td>
 </tr>
@@ -313,7 +316,7 @@ knitr::kable(more_info)
 | Denmark            |     1| Copenhagen    | Danish           |
 | Vatican City State |     0| Vatican       | Vatican          |
 
-I found a dataframe with extra three columns, which includes whether they belong to NATO, capital city of the country and primary language spoken in a country.
+I found a dataframe with extra three columns, which includes NATO, capital city of the country and primary language spoken in a country.
 
 #### left\_join
 
@@ -878,4 +881,4 @@ knitr::kable(innerjoin)
 | Japan   | Asia      |  2002|  82.00000|   127065841|  28604.5919|     0| Tokyo         | Japanese         |
 | Japan   | Asia      |  2007|  82.60300|   127467972|  31656.0681|     0| Tokyo         | Japanese         |
 
-Vatican City State is dropped, since `inner_join` keeps the data in bote dataframe.
+Vatican City State is dropped, since `inner_join` keeps the information in bote dataframe.
