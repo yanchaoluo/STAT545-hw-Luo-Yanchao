@@ -1,4 +1,4 @@
-README
+Cheetshet for tidyr function
 ================
 
 Main Functions
