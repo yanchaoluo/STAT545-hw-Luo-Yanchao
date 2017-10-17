@@ -1,0 +1,170 @@
+
+---
+title: "hm05_Luo_yanchao"
+output: github_document
+---
+
+## Load the data
+```{r}
+suppressPackageStartupMessages(library(gapminder))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(singer))
+```
+
+## Factor management
+
+**Step goals:**
+
++ Define factor variables;
++ Drop factor / levels;
++ Reorder levels based on knowledge from data.
+
+I choose the gapminder data. 
+
+#### Factorise 
+*Transform some of the variable in the singer_locations dataframe into factors: pay attention at what levels you introduce and their order. Try and consider the difference between the base R as.factor and the forcats-provided functions.*
+
+##### Factor inspection
+
+```{r}
+head(gapminder)
+
+
+str(gapminder)
+
+
+nrow(gapminder)
+levels(gapminder$continent)
+nlevels(gapminder$continent)
+summary(gapminder$continent)
+
+
+```
+
+From the R output above, we have total 1704 rows. And there are two factors: country and continent.
+
+
+##### Drop Oceania
+
+*Filter the singer_locations data to remove observations associated with the uncorrectly inputed  year 0. Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and levels; address the number of rows and the levels of the affected factors.*
+
+```{r}
+new1<-gapminder %>%
+  filter(year=="Oceania") 
+nrow(gapminder)
+
+```
+
+We had 1704 observations where Oceania.
+
+```{r}
+new2 <- gapminder %>% 
+  filter(continent != "Oceania") %>% 
+  droplevels()
+nrow(new2)
+```
+
+There are 24 rows remove compared with the previous data.
+
+Check how many levels change after removing the "Oceania".
+
++ country
+```{r}
+nlevels(gapminder$country)
+nlevels(new2$country)
+nlevels(gapminder$country)-nlevels(new2$country)
+
+```
+
+Before we have 142 levels of variable `country`, only 140 levels after removing the "Oceania". it reduces 2 levels.
+
+```{r}
+gapminder %>% 
+  filter(continent%in% "Oceania") %>% 
+  select(country)
+```
+There are only two countries, which belongs to "Oceania".(New Zealand, Australia). SO this is the reasons why we drop 2 levels of `country` variable after removing the "Oceania".
+
+```{r}
+levels(new2$continent)
+```
+
+We can also see there is no `Oceania` factor in the new data.
+
+##### Reorder the levels of `country` or `continent`.
+
+*Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median.*
+
++ Reorder the `country` by another variable `gdpPercap`. 
+
+```{r}
+fct_reorder(gapminder$country, gapminder$gdpPercap, max) %>% 
+  levels() %>% head()
+```
+
+order accoring to maximum gdpPercap instead of median.
+
+```{r}
+fct_reorder(gapminder$country, gapminder$gdpPercap, mean) %>% 
+  levels() %>% head()
+```
+
+ Order countries by mean gdpPercap.
+
+```{r}
+fct_reorder(gapminder$country, gapminder$gdpPercap, .desc = TRUE) %>% 
+  levels() %>% head()
+```
+
+ Order countries by backward gdpPercap.
+
++ Reorder the `continent` by another variable`lifeExp`. 
+
+```{r}
+fct_reorder(gapminder$continent, gapminder$lifeExp,min) %>% 
+  levels() %>% head()
+```
+
+The order accoring to minimum lifeExp instead of median.
+
+```{r}
+fct_reorder(gapminder$continent, gapminder$lifeExp,sd) %>% 
+  levels() %>% head()
+```
+
+ Order countries by standard diviation lifeExp.
+ 
+```{r}
+fct_reorder(gapminder$continent, gapminder$lifeExp, .desc = FALSE) %>% 
+  levels() %>% head()
+```
+
+Order countries by forward lifeExp.
+
+##### Common part:
+
+*Explore the effects of arrange(). Does merely arranging the data have any effect on, say, a figure?*
+*Explore the effects of reordering a factor and factor reordering coupled with arrange(). Especially, what effect does this have on a figure? These explorations should involve the data, the factor levels, and some figures.*
+
+Using reorder the `country` by another variable `gdpPercap` and order accoring to maximum gdpPercap instead of median.
+
+```{r}
+h_countries <- c("Canada", "China", "Egypt","Venezuela", "Thailand")
+new2<- gapminder %>%
+  filter(country %in% h_countries) %>% 
+  droplevels()
+ggplot(new2, aes(x = year, y = gdpPercap, color = country)) +
+  geom_line()
+
+
+ggplot(new2, aes(x = year, y = gdpPercap,
+                  color = fct_reorder2(country, year, gdpPercap,max))) +
+  geom_line() +
+  labs(color = "country")
+```
+
+```{r}
+
+```
+
