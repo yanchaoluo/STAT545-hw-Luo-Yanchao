@@ -2,3 +2,232 @@
 title: "hm05_Luo_yanchao"
 output: github_document
 ---
+
+## Load the data
+```{r}
+suppressPackageStartupMessages(library(gapminder))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(singer))
+```
+
+## Factor management
+
+**Step goals:**
+
++ Define factor variables;
++ Drop factor / levels;
++ Reorder levels based on knowledge from data.
+
+I choose the Joey’s Singer data. 
+
+#### Factorise 
+*Transform some of the variable in the singer_locations dataframe into factors: pay attention at what levels you introduce and their order. Try and consider the difference between the base R as.factor and the forcats-provided functions.*
+
+##### Factor inspection
+
+```{r}
+singer_locations
+
+
+str(singer_locations)
+#########################
+nrow(singer_locations)
+length(unique(singer_locations$artist_name))
+length(unique(singer_locations$name))
+length(unique(singer_locations$artist_id))
+##########################
+
+```
+
+From the R output above. `str(singer_locations)` gives us no variables are vector. And `nrow(singer_locations)` shows that there are 10100 rows in total.  I found unique of `artist_id`, `artist_name`,`name` are less than total `nrows`, so I want to factorise `artist_id`, `artist_name`,`name`.
+
+Using `as.factor`.
+
+```{r}
+newsinger_locations <- singer_locations %>%
+  mutate(factor_name = as.factor(singer_locations$name), 
+         factor_artist_name = as.factor(singer_locations$artist_name), 
+         factor_artist_id = as.factor(singer_locations$artist_id))
+head(newsinger_locations)
+```
+
+
+using `forcats`
+```
+newsinger_locations2 <- singer_locations %>%
+  mutate(factor_name2 = as_factor(singer_locations$name),
+         factor_artist_name2 = as_factor(singer_locations$artist_name), 
+         factor_year2 = as_factor(singer_locations$artist_id)) 
+head(newsinger_locations2)
+```
+
+At this time the `as_factor` not work. So I check the data, and found that the reason may due to many `NA` in the data.
+
+So check the "NA"
+```{r}
+if(sum(is.na(singer_locations$name)!=0)) print("variable `name` has NA")
+if(sum(is.na(singer_locations$artist_name)!=0)) print("variable `artist_name` has NA")
+if(sum(is.na(singer_locations$artist_id)!=0)) print("variable `artist_id` has NA")
+```
+
+From the code above, I found variable `name` has "NA".
+Assign "no information" for "NA"
+```{r}
+newsinger_locations3 <- singer_locations %>%
+  mutate(name= ifelse(is.na(name), "no information", singer_locations$name)) %>% 
+  mutate(factor_name = as_factor(name), 
+         factor_artist_name = as_factor(artist_name),
+         factor_artist_id = as_factor(artist_id))
+head(newsinger_locations3)
+```
+
+It is work after we removing the "NA". 
+
++ Name
+
+```{r}
+nlevels(newsinger_locations$factor_name)
+nlevels(newsinger_locations3$factor_name)
+head(levels(newsinger_locations$factor_name))
+head(levels(newsinger_locations3$factor_name))
+```
+
++ artist_name
+
+Compare nlevels between `as.factor` and `as_factor`.
+```{r}
+nlevels(newsinger_locations$factor_artist_name)
+nlevels(newsinger_locations3$factor_artist_name)
+head(levels(newsinger_locations$factor_artist_name))
+head(levels(newsinger_locations3$factor_artist_name))
+```
+
++ artist_id
+```{r}
+nlevels(newsinger_locations$factor_artist_id)
+nlevels(newsinger_locations3$factor_artist_id)
+
+head(levels(newsinger_locations$factor_artist_id))
+head(levels(newsinger_locations3$factor_artist_id))
+
+```
+
+Actually,`as_factor`creates levels in the order in which they appear, which will be the same as the original data. On the other hand 
+`as.factor` will change the levels order of the factor. Therefore, if there is no "NA". `as_factor` is better than `as.factor `, because it will keep the original order. 
+
+##### Drop 0
+
+*Filter the singer_locations data to remove observations associated with the uncorrectly inputed  year 0. Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and levels; address the number of rows and the levels of the affected factors.*
+
+Using the new dataset `newsinger_locations3`
+
+```{r}
+Check_0<-newsinger_locations3 %>%
+  filter(year==0) 
+
+nrow(Check_0)
+```
+
+We had 100 observations where year equal to "0".
+
+`droplevels()` operates on all the factors in a data frame or on a single factor.
+
+```{r}
+remove_0 <- newsinger_locations3 %>%
+  filter(year != 0) %>%
+  droplevels()
+nrow(remove_0)
+```
+
+There are 100 row remove compared with the previous data.
+
+Check how many levels change after removing the "0".
+
++ name
+```{r}
+nlevels(remove_0$factor_name)
+
+nlevels(newsinger_locations3$factor_name)-nlevels(remove_0$factor_name)
+
+```
+
+Before we have 2913 levels of variable `name`, only 2879 levels change after removing the "0". it reduces 34 levels.
+
++ artist_name
+
+```{r}
+nlevels(remove_0$factor_artist_name)
+
+nlevels(newsinger_locations3$factor_artist_name)-nlevels(remove_0$factor_artist_name)
+
+```
+
+Before we have 7498 levels of variable `name`, only 7408 levels change after removing the "0". it reduces 90 levels.
+
++ artist_id
+
+```{r}
+nlevels(remove_0$factor_artist_id)
+
+nlevels(newsinger_locations3$factor_artist_id)-nlevels(remove_0$factor_artist_id)
+
+```
+
+Before we have 7346 levels of variable `name`, only 7258 levels change after removing the "0". it reduces 88 levels.
+
+##### Reorder the levels of year, artist_name or title.
+
+*Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median.*
+
+Factor variables  `artist_name` `year` `title`.
+```{r}
+newsinger_locations4 <- singer_locations %>%
+  mutate(factor_artist_name = as_factor(artist_name),
+         factor_title = as_factor(title))
+```
+
++ Reorder the `title` by another variable `artist_hotttnesss  `.
+
+backwards.
+
+```{r}
+fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hotttnesss,desc = TRUE) %>% 
+  levels() %>%  head() 
+```
+
+
++ Reorder the `artist_name` by another variable `artist_hotttnesss`
+
+Order the minimun value of artist_hotttnesss
+
+```{r}
+fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist_hotttnesss, max) %>% 
+  levels() %>%  head()
+  
+```
+
+##### Common part:
+
+
+*Characterize the (derived) data before and after your factor re-leveling.*
+
+*Explore the effects of arrange(). Does merely arranging the data have any effect on, say, a figure?*
+*Explore the effects of reordering a factor and factor reordering coupled with arrange(). Especially, what effect does this have on a figure?*
+
++ Using `arrange` function to see how to change the factor `title` and `artist_name`.
+Because the data is so large, I want to consider subset of data. I only interested hotttnesss larger than 0.84.
+```{r}
+
+newsinger_locations4 %>% 
+  arrange(artist_hotttnesss) %>% 
+  filter(artist_hotttnesss>0.840) %>% 
+  ggplot(aes(x=artist_hotttnesss,y=factor_artist_name)) + 
+  geom_point(aes(colour=artist_name)) +
+ labs(x="artist_hotttnesss", 
+          y="artist_name",
+          title=" arranging factor_artist_name based on artist_hotttnesss")+
+  theme_bw()+
+  theme( axis.title = element_text(size=14))
+```
+
