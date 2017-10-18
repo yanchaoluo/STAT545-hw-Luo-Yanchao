@@ -189,20 +189,20 @@ newsinger_locations4 <- singer_locations %>%
 
 + Reorder the `title` by another variable `artist_hotttnesss  `.
 
-backwards.
+Order the mean value instead of median value and using backwards.
 
 ```{r}
-fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hotttnesss,desc = TRUE) %>% 
+fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hotttnesss, mean, desc = TRUE) %>% 
   levels() %>%  head() 
 ```
 
 
 + Reorder the `artist_name` by another variable `artist_hotttnesss`
 
-Order the minimun value of artist_hotttnesss
+Order the maximum value of artist_hotttnesss and using backwards
 
 ```{r}
-fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist_hotttnesss, max) %>% 
+fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist_hotttnesss, max,desc = TRUE) %>% 
   levels() %>%  head()
   
 ```
@@ -217,6 +217,7 @@ fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist
 
 + Using `arrange` function to see how to change the factor `title` and `artist_name`.
 Because the data is so large, I want to consider subset of data. I only interested hotttnesss larger than 0.84.
+
 ```{r}
 
 newsinger_locations4 %>% 
@@ -226,8 +227,94 @@ newsinger_locations4 %>%
   geom_point(aes(colour=artist_name)) +
  labs(x="artist_hotttnesss", 
           y="artist_name",
-          title=" arranging factor_artist_name based on artist_hotttnesss")+
+          title=" Using `arrange` to compare factor_artist_name based on artist_hotttnesss")+
   theme_bw()+
   theme( axis.title = element_text(size=14))
 ```
+
+Onlying use the `arrange` function, it will only arrange the `artist_hotttnesss` and keep the order of `artist_name`.
++ Using `reordering` function to see how to change the factor `title` and `artist_name`.
+
+```{r}
+
+newsinger_locations4 %>% 
+  filter(artist_hotttnesss>0.840) %>% 
+  ggplot(aes(x=artist_hotttnesss,y=fct_reorder(factor_artist_name, artist_hotttnesss,max,desc = TRUE))) + 
+  geom_point(aes(colour=artist_name)) +
+ labs(x="artist_hotttnesss", 
+          y="artist_name",
+          title=" Using ``reorder` to arrange factor_artist_name based on artist_hotttnesss")+
+  theme_bw()+
+  theme( axis.title = element_text(size=14))
+```
+
+Using `reorder` often makes plots much better. We could see who is the most popular artist and how hot he is.
+
+
++ Using `reorder` and `arrange` function to see how to change the factor `title` and `artist_name`.
+
+```{r}
+newsinger_locations4 %>% 
+  arrange(artist_hotttnesss) %>% 
+  filter(artist_hotttnesss>0.840) %>% 
+  ggplot(aes(x=artist_hotttnesss,y=fct_reorder(factor_artist_name, artist_hotttnesss,max,desc = TRUE))) + 
+  geom_point(aes(colour=artist_name)) +
+ labs(x="artist_hotttnesss", 
+          y="artist_name",
+          title=" Compare the  factor_artist_name based on artist_hotttnesss")+
+  theme_bw()+
+  theme( axis.title = element_text(size=14))
+
+```
+
+There is no change compared with the graph, which only use `reorder` function.
+
+## File I/O
+
+*Experiment with one or more of `write_csv()`/`read_csv()` (and/or TSV friends), `saveRDS()`/`readRDS()`,  `dput()`/`dget()`. Create something new, probably by filtering or grouped-summarization of Singer or Gapminder. I highly recommend you fiddle with the factor levels, i.e. make them non-alphabetical (see previous section). Explore whether this survives the round trip of writing to file then reading back in.*
+
+##### `write_csv` and `read_csv()`.
+```{r}
+artist_hotttnesss_max <- newsinger_locations4 %>%
+  mutate(factor_artist_name = fct_reorder(factor_artist_name, artist_hotttnesss,max, desc = TRUE)) %>%
+  group_by(factor_artist_name) %>%
+   summarise(max_artist_hotttnesss=max(artist_hotttnesss))
+
+```
+
+```{r}
+readr::write_csv(artist_hotttnesss_max, "artist_hotttnesss")
+head(write_csv(artist_hotttnesss_max, "artist_hotttnesss"))
+```
+Using `read_csv()`.
+```{r}
+readr::read_csv("artist_hotttnesss")
+str(readr::read_csv("artist_hotttnesss"))
+```
+I found we do not change the characteristic of `artist_name` from `chr` to `Factor`.
+
+##### `saveRDS()` and `readRDS()` 
+
+`saveRDS()` serializes an R object to a binary file.
+`saveRDS()` has more arguments, in particular compress for controlling compression, so read the help for more advanced usage. 
+
+```{r}
+saveRDS(artist_hotttnesss_max, "artist_hotttnesss_max.rds")
+artist_hotttnesss_max1<-readRDS("artist_hotttnesss_max.rds")
+str(artist_hotttnesss_max1)
+```
+
+I found this time we have change the `artist_name` as `Factor`.
+
+`dput()`/`dget()`
+
+```{r}
+dput(artist_hotttnesss_max, "artist_hotttnesss_max_dput.txt")
+artist_hotttnesss_max2 <- dget("artist_hotttnesss_max_dput.txt")
+str(artist_hotttnesss_max2)
+```
+
+Using `dput` will change  the `artist_name` as `Factor`.
+
+## Visualization design
 
