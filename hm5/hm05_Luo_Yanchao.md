@@ -398,10 +398,10 @@ newsinger_locations4 <- singer_locations %>%
 
 -   Reorder the `title` by another variable `artist_hotttnesss`.
 
-backwards.
+Order the mean value instead of median value and using backwards.
 
 ``` r
-fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hotttnesss,desc = TRUE) %>% 
+fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hotttnesss, mean, desc = TRUE) %>% 
   levels() %>%  head() 
 ```
 
@@ -410,19 +410,16 @@ fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hottt
 
 -   Reorder the `artist_name` by another variable `artist_hotttnesss`
 
-Order the minimun value of artist\_hotttnesss
+Order the maximum value of artist\_hotttnesss and using backwards
 
 ``` r
-fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist_hotttnesss, max) %>% 
+fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist_hotttnesss, max,desc = TRUE) %>% 
   levels() %>%  head()
 ```
 
-    ## [1] "The Freelance Hellraiser"                  
-    ## [2] "Col. Bruce Hampton and the Late Bronze Age"
-    ## [3] "The Jancee Pornick Casino"                 
-    ## [4] "Elliott Sharp`s Terraplane"                
-    ## [5] "Main Concept"                              
-    ## [6] "Jessie Lee Miller"
+    ## [1] "Motion City Soundtrack"         "Gene Chandler"                 
+    ## [3] "Paul Horn"                      "Ronnie Earl & the Broadcasters"
+    ## [5] "Dorothy Ashby"                  "Barleyjuice"
 
 ##### Common part:
 
@@ -440,9 +437,160 @@ newsinger_locations4 %>%
   geom_point(aes(colour=artist_name)) +
  labs(x="artist_hotttnesss", 
           y="artist_name",
-          title=" arranging factor_artist_name based on artist_hotttnesss")+
+          title=" Using `arrange` to compare factor_artist_name based on artist_hotttnesss")+
   theme_bw()+
   theme( axis.title = element_text(size=14))
 ```
 
 ![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
+
+Onlying use the `arrange` function, it will only arrange the `artist_hotttnesss` and keep the order of `artist_name`. + Using `reordering` function to see how to change the factor `title` and `artist_name`.
+
+``` r
+newsinger_locations4 %>% 
+  filter(artist_hotttnesss>0.840) %>% 
+  ggplot(aes(x=artist_hotttnesss,y=fct_reorder(factor_artist_name, artist_hotttnesss,max,desc = TRUE))) + 
+  geom_point(aes(colour=artist_name)) +
+ labs(x="artist_hotttnesss", 
+          y="artist_name",
+          title=" Using ``reorder` to arrange factor_artist_name based on artist_hotttnesss")+
+  theme_bw()+
+  theme( axis.title = element_text(size=14))
+```
+
+![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
+
+Using `reorder` often makes plots much better. We could see who is the most popular artist and how hot he is.
+
+-   Using `reorder` and `arrange` function to see how to change the factor `title` and `artist_name`.
+
+``` r
+newsinger_locations4 %>% 
+  arrange(artist_hotttnesss) %>% 
+  filter(artist_hotttnesss>0.840) %>% 
+  ggplot(aes(x=artist_hotttnesss,y=fct_reorder(factor_artist_name, artist_hotttnesss,max,desc = TRUE))) + 
+  geom_point(aes(colour=artist_name)) +
+ labs(x="artist_hotttnesss", 
+          y="artist_name",
+          title=" Compare the  factor_artist_name based on artist_hotttnesss")+
+  theme_bw()+
+  theme( axis.title = element_text(size=14))
+```
+
+![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-19-1.png)
+
+There is no change compared with the graph, which only use `reorder` function.
+
+File I/O
+--------
+
+*Experiment with one or more of `write_csv()`/`read_csv()` (and/or TSV friends), `saveRDS()`/`readRDS()`, `dput()`/`dget()`. Create something new, probably by filtering or grouped-summarization of Singer or Gapminder. I highly recommend you fiddle with the factor levels, i.e. make them non-alphabetical (see previous section). Explore whether this survives the round trip of writing to file then reading back in.*
+
+##### `write_csv` and `read_csv()`.
+
+``` r
+artist_hotttnesss_max <- newsinger_locations4 %>%
+  mutate(factor_artist_name = fct_reorder(factor_artist_name, artist_hotttnesss,max, desc = TRUE)) %>%
+  group_by(factor_artist_name) %>%
+   summarise(max_artist_hotttnesss=max(artist_hotttnesss))
+```
+
+``` r
+readr::write_csv(artist_hotttnesss_max, "artist_hotttnesss")
+head(write_csv(artist_hotttnesss_max, "artist_hotttnesss"))
+```
+
+    ## # A tibble: 6 x 2
+    ##               factor_artist_name max_artist_hotttnesss
+    ##                           <fctr>                 <dbl>
+    ## 1         Motion City Soundtrack             0.6410183
+    ## 2                  Gene Chandler             0.3937627
+    ## 3                      Paul Horn             0.4306226
+    ## 4 Ronnie Earl & the Broadcasters             0.3622792
+    ## 5                  Dorothy Ashby             0.4107520
+    ## 6                    Barleyjuice             0.3762635
+
+Using `read_csv()`.
+
+``` r
+readr::read_csv("artist_hotttnesss")
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   factor_artist_name = col_character(),
+    ##   max_artist_hotttnesss = col_double()
+    ## )
+
+    ## # A tibble: 7,498 x 2
+    ##                factor_artist_name max_artist_hotttnesss
+    ##                             <chr>                 <dbl>
+    ##  1         Motion City Soundtrack             0.6410183
+    ##  2                  Gene Chandler             0.3937627
+    ##  3                      Paul Horn             0.4306226
+    ##  4 Ronnie Earl & the Broadcasters             0.3622792
+    ##  5                  Dorothy Ashby             0.4107520
+    ##  6                    Barleyjuice             0.3762635
+    ##  7                 Vertigo Angels             0.1814601
+    ##  8                Wir Sind Helden             0.4743547
+    ##  9              Simon & Garfunkel             0.5103250
+    ## 10                    Rabia Sorda             0.4196401
+    ## # ... with 7,488 more rows
+
+``` r
+str(readr::read_csv("artist_hotttnesss"))
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   factor_artist_name = col_character(),
+    ##   max_artist_hotttnesss = col_double()
+    ## )
+
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    7498 obs. of  2 variables:
+    ##  $ factor_artist_name   : chr  "Motion City Soundtrack" "Gene Chandler" "Paul Horn" "Ronnie Earl & the Broadcasters" ...
+    ##  $ max_artist_hotttnesss: num  0.641 0.394 0.431 0.362 0.411 ...
+    ##  - attr(*, "spec")=List of 2
+    ##   ..$ cols   :List of 2
+    ##   .. ..$ factor_artist_name   : list()
+    ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+    ##   .. ..$ max_artist_hotttnesss: list()
+    ##   .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
+    ##   ..$ default: list()
+    ##   .. ..- attr(*, "class")= chr  "collector_guess" "collector"
+    ##   ..- attr(*, "class")= chr "col_spec"
+
+I found we do not change the characteristic of `artist_name` from `chr` to `Factor`.
+
+##### `saveRDS()` and `readRDS()`
+
+`saveRDS()` serializes an R object to a binary file. `saveRDS()` has more arguments, in particular compress for controlling compression, so read the help for more advanced usage.
+
+``` r
+saveRDS(artist_hotttnesss_max, "artist_hotttnesss_max.rds")
+artist_hotttnesss_max1<-readRDS("artist_hotttnesss_max.rds")
+str(artist_hotttnesss_max1)
+```
+
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    7498 obs. of  2 variables:
+    ##  $ factor_artist_name   : Factor w/ 7498 levels "Motion City Soundtrack",..: 1 2 3 4 5 6 7 8 9 10 ...
+    ##  $ max_artist_hotttnesss: num  0.641 0.394 0.431 0.362 0.411 ...
+
+I found this time we have change the `artist_name` as `Factor`.
+
+`dput()`/`dget()`
+
+``` r
+dput(artist_hotttnesss_max, "artist_hotttnesss_max_dput.txt")
+artist_hotttnesss_max2 <- dget("artist_hotttnesss_max_dput.txt")
+str(artist_hotttnesss_max2)
+```
+
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    7498 obs. of  2 variables:
+    ##  $ factor_artist_name   : Factor w/ 7498 levels "Motion City Soundtrack",..: 1 2 3 4 5 6 7 8 9 10 ...
+    ##  $ max_artist_hotttnesss: num  0.641 0.394 0.431 0.362 0.411 ...
+
+Using `dput` will change the `artist_name` as `Factor`.
+
+Visualization design
+--------------------
