@@ -14,6 +14,14 @@ suppressPackageStartupMessages(library(forcats))
 
 ``` r
 suppressPackageStartupMessages(library(singer))
+suppressPackageStartupMessages(library(reshape2))
+```
+
+    ## Warning: package 'reshape2' was built under R version 3.4.2
+
+``` r
+suppressPackageStartupMessages(library(RColorBrewer))
+suppressPackageStartupMessages(library(dplyr))
 ```
 
 Factor management
@@ -132,7 +140,7 @@ length(unique(singer_locations$artist_id))
 
     ## [1] 7346
 
-From the R output above. `str(singer_locations)` shows that no variables are vector. And `nrow(singer_locations)` shows that there are 10100 rows in total. I found unique of `artist_id`, `artist_name`,`name` are less than total `nrows`, so I want to factorize `artist_id`, `artist_name`,`name`.
+From the R output above. `str(singer_locations)` shows that no variable is vector. And `nrow(singer_locations)` shows that there are 10100 rows in total. I found unique of `artist_id`, `artist_name`,`name` are less than total `nrows`, so I want to factorize `artist_id`, `artist_name`,`name`.
 
 Using `as.factor`.
 
@@ -159,7 +167,7 @@ head(newsinger_locations)
     ## #   longitude <dbl>, name <chr>, city <chr>, factor_name <fctr>,
     ## #   factor_artist_name <fctr>, factor_artist_id <fctr>
 
-using `forcats`
+Using `forcats`
 
     newsinger_locations2 <- singer_locations %>%
       mutate(factor_name = as_factor(singer_locations$name),
@@ -167,7 +175,7 @@ using `forcats`
              factor_artist_id = as_factor(singer_locations$artist_id)) 
     head(newsinger_locations2)
 
-At this time the `as_factor` not work. So I check the data and found that the reason may due to many `NA` in the data.
+At this time, the `as_factor` does not work. So I checked the data and found that the reason of not working may be due to many `NA` in the data.
 
 Check the "NA"
 
@@ -182,7 +190,7 @@ if(sum(is.na(singer_locations$artist_name)!=0)) print("variable `artist_name` ha
 if(sum(is.na(singer_locations$artist_id)!=0)) print("variable `artist_id` has NA")
 ```
 
-From the code above, I found variable `name` has "NA".
+From the code above, I found variable `name` has "NA"s.
 
 Assign "no information" for "NA".
 
@@ -210,7 +218,7 @@ head(newsinger_locations3)
     ## #   longitude <dbl>, name <chr>, city <chr>, factor_name <fctr>,
     ## #   factor_artist_name <fctr>, factor_artist_id <fctr>
 
-It is work after we removing the "NA".
+The `as_factor` worked after we have removed the "NA"s.
 
 -   Name
 
@@ -299,7 +307,7 @@ head(levels(newsinger_locations3$factor_artist_id))
     ## [1] "ARACDPV1187FB58DF4" "ARYBUAO1187FB3F4EB" "AR4111G1187B9B58AB"
     ## [4] "ARQDZP31187B98D623" "AR75GYU1187B9AE47A" "ARCENE01187B9AF929"
 
-Actually,`as_factor`creates levels in the order in which they appear, and it will be the same as the original data. On the other hand `as.factor` will change the levels order of the factor. Therefore, if there is no "NA". `as_factor` is better than `as.factor`, because it will keep the original order.
+Actually,`as_factor`creates levels in order in which they appear, and it will be the same as the original data. On the other hand, `as.factor` will change the levels order of the factor. Therefore, if there is no "NA"s `as_factor` is better than `as.factor`, because it will keep the data's original order.
 
 #### Drop 0
 
@@ -316,7 +324,7 @@ nrow(Check_0)
 
     ## [1] 100
 
-We had 100 observations where year equal to "0".
+We had 100 observations which the "year" equal to "0".
 
 `droplevels()` operates on all the factors in a data frame or on a single factor.
 
@@ -329,9 +337,9 @@ nrow(remove_0)
 
     ## [1] 10000
 
-There are 100 rows remove compared with the previous data.
+There are 100 rows have been removed compared with the previous data.
 
-Check how many levels change after removing the "0".
+Checked how many levels changed after removing "0".
 
 -   name
 
@@ -347,7 +355,7 @@ nlevels(newsinger_locations3$factor_name)-nlevels(remove_0$factor_name)
 
     ## [1] 34
 
-Before we have 2913 levels of variable `name`, only 2879 levels change after removing the "0". it reduces 34 levels.
+We used to have 2913 levels of variable `name`, and left 2879 levels after removing "0". So it totally reduced 34 levels.
 
 -   artist\_name
 
@@ -363,7 +371,7 @@ nlevels(newsinger_locations3$factor_artist_name)-nlevels(remove_0$factor_artist_
 
     ## [1] 90
 
-Before we have 7498 levels of variable `name`, only 7408 levels change after removing the "0". it reduces 90 levels.
+We used to have 7498 levels of variable `name`, and left 7408 levels after removing "0". So it totally reduced 90 levels.
 
 -   artist\_id
 
@@ -379,7 +387,7 @@ nlevels(newsinger_locations3$factor_artist_id)-nlevels(remove_0$factor_artist_id
 
     ## [1] 88
 
-Before we have 7346 levels of variable `name`, only 7258 levels change after removing the "0". it reduces 88 levels.
+We used to have 7346 levels of variable `name`, and left 7258 levels after removing "0". So it totally reduced 88 levels.
 
 ``` r
 table <- data.frame( nlevels(newsinger_locations3$factor_name), nlevels(remove_0$factor_name), nlevels(newsinger_locations3$factor_artist_name), nlevels(remove_0$factor_artist_name), nlevels(newsinger_locations3$factor_artist_id), nlevels(remove_0$factor_artist_id))
@@ -424,7 +432,7 @@ fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hottt
     ## [1] "Weightlessness"       "Farmers Earn Livings" "Hello There Babushka"
     ## [4] "Stop That Thing"      "Session 1"            "Cryin' Alone"
 
-The levels of `title` are reordered so that the mean of artist\_hotttnesss are in descending order.
+The levels of `title` are reordered, so that the mean of artist\_hotttnesss are in descending order.
 
 -   Reorder the `artist_name` by another variable `artist_hotttnesss`
 
@@ -460,7 +468,9 @@ The levels of `artist_name` are reordered follow by the minimum of artist\_hottt
 
 *Explore the effects of arrange(). Does merely arranging the data have any effect on, say, a figure?* *Explore the effects of reordering a factor and factor reordering coupled with arrange(). Especially, what effect does this have on a figure?*
 
--   Using `arrange` function to see how to change the factor `title` and `artist_name`. Because the data is so large, I want to consider subset of data(only seethe artist\_hotttnessslarger than 0.840 ).
+-   Using `arrange` function to see how to change the factor `title` and `artist_name`.
+
+Because the data is so large, I want to consider subset of data(only see the artist\_hotttnesss larger than 0.840 ).
 
 Plot before `arrange`.
 
@@ -493,9 +503,9 @@ newsinger_locations4 %>%
 
 ![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-21-1.png)
 
-We can see that `arrange` does not have any effect on the plots, and the levels are the same before and after arrange.
+We can see that `arrange` does not has any effect on the plots, and the levels are the same as before and after arranged.
 
--   Using `reordering` function to see how to change the factor `title` and `artist_name`.
+-   Using `reordering` function to see how the factor `title` and `artist_name`changed.
 
 ``` r
 newsinger_locations4 %>% 
@@ -513,7 +523,7 @@ newsinger_locations4 %>%
 
 Using `reorder` often makes plots much better. We could see who is the most popular artist and how hot he is.
 
--   Using `reorder` and `arrange` function to see how to change the factor `title` and `artist_name`.
+-   Using `reorder` and `arrange` function to see how the factor `title` and `artist_name` changed.
 
 ``` r
 newsinger_locations4 %>% 
@@ -528,7 +538,7 @@ newsinger_locations4 %>%
   theme( axis.title = element_text(size=14))
 ```
 
-![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png) `arrange()` does not change the order of the levels and has no effect on the plots. There is no change for above plot compared with the graph, which only uses `reorder` function.
+![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png) `arrange()` does not change the order of the levels and has no effect on the plots. There is no change for the above plot compared with the graph, which only uses `reorder` function.
 
 File I/O
 --------
@@ -597,7 +607,7 @@ I found that `artist_name` is considered as a character instead of factor, when 
 
 #### Using `saveRDS()` and `readRDS()`
 
-`saveRDS()` serializes an R object to a binary file. `saveRDS()` has more arguments, in particular compress for controlling compression, so read the help for more advanced usage.
+`saveRDS()` serializes an R object to a binary file. `saveRDS()` has more arguments, in particular compress for controlling compression, so I read the help for more advanced usage.
 
 ``` r
 saveRDS(artist_hotttnesss_max, "artist_hotttnesss_max.rds")
@@ -609,7 +619,7 @@ str(artist_hotttnesss_max1)
     ##  $ factor_artist_name   : Factor w/ 7498 levels "Motion City Soundtrack",..: 13 47 62 77 85 113 144 180 235 245 ...
     ##  $ max_artist_hotttnesss: num  0.603 0.413 0.492 0.46 0.536 ...
 
-I found this time we have change the `artist_name` to be a factor.
+I found that we have changed the `artist_name` to be a factor at this time.
 
 #### Using `dput()`/`dget()`
 
@@ -651,7 +661,7 @@ head(levels(newsinger_locations_test$factor_artist_name))
     ## [5] "Main Concept"                              
     ## [6] "Jessie Lee Miller"
 
-we could found that `artist_name` are changed by `artist_hotttnesss`. And I want to see whether save it to file in a way that will preserve this work upon re-import or not.
+We could find that `artist_name` are changed by `artist_hotttnesss`. So I save it to file,and reopen it to see whether the order is changed or not.
 
 -   `write_csv` and `read_csv`
 
@@ -705,7 +715,7 @@ head(levels(reorder_singer_locations_rds$factor_artist_name))
     ## [5] "Main Concept"                              
     ## [6] "Jessie Lee Miller"
 
-We can see that reordering works using `saveRDS` / `readRDS`.
+We can see that how reordering works using `saveRDS` / `readRDS`.
 
 -   `dput()`/`dget()`
 
@@ -722,7 +732,7 @@ head(levels(reorder_singer_locations_txt$factor_artist_name))
     ## [5] "Main Concept"                              
     ## [6] "Jessie Lee Miller"
 
-We can see that reordering works using `dput()`/`dget()`.
+We can see that how reordering works using `dput()`/`dget()`.
 
 ``` r
 artist_name_level <- tibble(original = head(levels(newsinger_locations_test$factor_artist_name)))
@@ -742,20 +752,18 @@ knitr::kable(artist_name_level)
 | Main Concept                               | +44                 | Main Concept                               | Main Concept                               |
 | Jessie Lee Miller                          | <U+00C4>I-TIEM      | Jessie Lee Miller                          | Jessie Lee Miller                          |
 
-Note that compared with the original, post-reordering country factor levels are restored using the `saveRDS()` / `readRDS()` and `dput()`/`dget()` strategy but should revert to alphabetical ordering using `write_csv()` / `read_csv()`.
+Note that compared with the original levels, post-reordering country factor levels are restored by using the `saveRDS()` / `readRDS()` and `dput()`/`dget()` strategy. But they should be reverted to alphabetical ordering by using `write_csv()` / `read_csv()`.
 
 Visualization design
 --------------------
 
 *Remake at least one figure or create a new one, in light of something you learned in the recent class meetings about visualization design and color. Maybe juxtapose your first attempt and what you obtained after some time spent working on it. Reflect on the differences.*
 
-I am interested in `hotttnesss` for different artist `duration` as the time change. Randomly pick a artist "Cannibal Corpse" to high light her/his `duration`.
+I am interested in `hotttnesss` for different artists and their hottness `duration` as the time change. Randomly picked an artist "Cannibal Corpse" to highlight her/his `duration`.
 
 #### The first graph:
 
 ``` r
-library(RColorBrewer)
-
 colour_layer <- scale_colour_manual("", 
                         labels=c("Other artist", "Cannibal Corpse"),
                         values=c("black", "red"))
@@ -781,7 +789,7 @@ colour_layer <- scale_colour_manual("",
 
 #### The second graphs:
 
-First I try to subset the data, set the hotness larger than 0.6 and year after 1999. And plot the `factor_artist_name` vs related `artist_hotttnesss`. By the same time, color the `year` and size the `familiarity`.
+First I try to subset the data, only looked at the hotness larger than 0.6 and the year after 1999. The I plot the `factor_artist_name` vs related `artist_hotttnesss`. By the same time, colored the `year` and scaled artists `familiarity`.
 
 ``` r
 newsinger_locations4 %>% 
@@ -790,15 +798,17 @@ newsinger_locations4 %>%
   filter(artist_hotttnesss>0.6, year>1999) %>% 
 ggplot( aes(x=factor_artist_name,y= artist_hotttnesss, size=artist_familiarity,colour=year)) +
     geom_point(alpha=0.5) +
-  scale_colour_distiller(palette="Dark2")+
-theme_bw() +
+  scale_colour_distiller(palette="Spectral")+
+  theme_bw() +
   labs(x="artist name", y="artist hotness", title="artists hotness and their familiarity")+
       theme( axis.title = element_text(size=14))
 ```
 
 ![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-35-1.png)
 
-It is very hard to found artist and his related hotness. using `fct_lump` function to found top 3 artists .
+In the picture, it is very hard to find the artist and his related hotness.
+
+using `fct_lump` function to find the top 3 artists .
 
 ``` r
 newsinger_locations4 %>% 
@@ -808,7 +818,7 @@ newsinger_locations4 %>%
   mutate(topartist_names = fct_lump(factor_artist_name1, n=3)) %>% 
 ggplot( aes(x=fct_reorder(topartist_names,artist_hotttnesss),y= artist_hotttnesss, size=artist_familiarity,colour=year)) +
     geom_point(alpha=0.5) +
-    scale_colour_distiller(palette="Dark2")+
+    scale_colour_distiller(palette="Spectral")+
 theme_bw() +
   labs(x="artist name", y="artist hotness", title="artists hotness and their familiarity")+
       theme( axis.title = element_text(size=14))
@@ -816,7 +826,7 @@ theme_bw() +
 
 ![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-36-1.png)
 
-Many other items which is not useful when I only want to find top 3 `artists`. Therefore, I will remove `other` in plots.
+In the graph we can see too much information which is not useful when I only want to find the top 3 `artists`. Therefore, I will remove the "usefulless" features `other` in the plots.
 
 ``` r
 newsinger_locations4 %>% 
@@ -828,7 +838,7 @@ newsinger_locations4 %>%
   droplevels() %>% 
 ggplot( aes(x=fct_reorder(topartist_names,artist_hotttnesss),y= artist_hotttnesss, size=artist_familiarity,colour=year)) +
     geom_point(alpha=0.5) +
-    scale_colour_distiller(palette="Dark2")+
+    scale_colour_distiller(palette="Spectral")+
 theme_bw() +
   labs(x="artist name", y="artist hotness", title="artists hotness and their familiarity")+
       theme( axis.title = element_text(size=14))
@@ -836,7 +846,7 @@ theme_bw() +
 
 ![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-37-1.png)
 
-Removing the `other`, which is `artist` hotness not in the top three. From the graph above, it can easy found that "Alicia Keys" has the highest artist hotness, and she also has higher familiarity and happen after 2007. However, "Joe Satriani" hotness ranks three but has the lower familiarity and happen in 2000.
+Removing the `other`, which `artist` hotness are not in the top three. From the graph above, we can easily find that "Alicia Keys" has the highest artist hotness, and she also has higher familiarity happened after 2007. And "Joe Satriani" hotness ranks three and he has the lower familiarity happened in 2000.
 
 Writing figures to file
 -----------------------
@@ -858,12 +868,63 @@ ggsave("my plot.pdf", width=12, height=8, plot=p)
 But I want to do more!
 ----------------------
 
+*Make a deeper exploration of the forcats packages, i.e. try more of the factor level reordering functions.*
+
+*Revalue a factor, e.g.:*
+
+*Singer version: Pick a handful of locations (they are named city, try using distinct()) that you can pinpoint to a geographical place (city, region, country, continent,…). Create an excerpt of the Singer data, filtered to just those rows. Create a (couple of) new factor(s) – you pick the name(s)! – by mapping the existing city factor levels to the new (city, region, country…) levels.* *Examples: “London, England” –&gt; “London”, “England”, “UK”, “Europe”;* *“Los Angeles, CA” –&gt; “Los Angeles”, “California”, “USA”, “Americas”;...*
+
+*“310, Louisiana” –&gt; “New Orleans”, “Louisiana”, “USA”, “Americas”.* *When you get tired, if you still have time on your hand, try to make this process of geolocalization more streamlined: you may want to try and use the separate function from tidyr.*
+
+``` r
+But_I_want_do_more <- singer_locations %>%
+  mutate(city= ifelse(is.na(city), "no information", singer_locations$city)) %>% 
+ mutate(factor_city = as_factor(city)) 
+
+p<- But_I_want_do_more%>%
+  filter(factor_city %in% c("Oxnard, CA","Los Angeles, CA","Portland, OR","Berlin, Germany","New York, NY")) %>%
+  droplevels() %>%
+  mutate(cityname = fct_recode(factor_city, "Oxnard" = "Oxnard, CA", "Los Angeles" = "Los Angeles, CA", "Portland" = "Portland, OR", "Berlin" = "Berlin, Germany", "New York" = "New York, NY")) %>% 
+  select(title, artist_name, city, cityname)
+knitr::kable(head(p))
+```
+
+| title                    | artist\_name | city            | cityname    |
+|:-------------------------|:-------------|:----------------|:------------|
+| Here's That Rainy Day    | Paul Horn    | New York, NY    | New York    |
+| Indian Deli              | Madlib       | Oxnard, CA      | Oxnard      |
+| The Ingenue (LP Version) | Little Feat  | Los Angeles, CA | Los Angeles |
+| The Breaks               | 31Knots      | Portland, OR    | Portland    |
+| At The End               | iio          | New York, NY    | New York    |
+| The Hunting Song         | Tom Lehrer   | New York, NY    | New York    |
+
+Using the `separate` function from tidyr.
+
+``` r
+p1<- But_I_want_do_more%>%
+  filter(city %in% c("Oxnard, CA","Los Angeles, CA","Portland, OR","Berlin, Germany","New York, NY")) %>%
+  droplevels() %>% 
+  select(title, artist_name, city)%>% 
+  separate(city,c("city", "state/country"), sep = ",") 
+  
+knitr::kable(head(p1))
+```
+
+| title                    | artist\_name | city        | state/country |
+|:-------------------------|:-------------|:------------|:--------------|
+| Here's That Rainy Day    | Paul Horn    | New York    | NY            |
+| Indian Deli              | Madlib       | Oxnard      | CA            |
+| The Ingenue (LP Version) | Little Feat  | Los Angeles | CA            |
+| The Breaks               | 31Knots      | Portland    | OR            |
+| At The End               | iio          | New York    | NY            |
+| The Hunting Song         | Tom Lehrer   | New York    | NY            |
+
 Report the process.
 -------------------
 
-The first question:
+There are two questions appear when I was doing the homework. The first question is:
 
-If I try to factor `year` in the `mutate` , there is an error says no applicable method for 'as\_factor' applied to an object of class "c('integer', 'numeric')".
+If I try to factor `year` in the `mutate` , there is an error says "no applicable method for 'as\_factor' applied to an object of class "c('integer', 'numeric')"".
 
      singer_locations %>%
       mutate (factor_year = as_factor(year))
@@ -878,7 +939,7 @@ typeof(singer_locations$year)
 
 So I am confused about why I can not use factor `year` in `mutate` function.
 
-The second question:
+The second question is:
 
 If I want to use the `read_csv` function, the level of the `factor_artist_name` wil alsways shows unreadable code.
 
@@ -915,7 +976,7 @@ head(levels(reorder_singer_locations_csv$factor_artist_name))
     ## [1] "'t Hof Van Commerce" "'Til Tuesday"        "*Shels"             
     ## [4] "[re:jazz]"           "+44"                 "<U+00C4>I-TIEM"
 
-The right one should be below:
+However, the right output should be below as:
 
     [1] "Motion City Soundtrack"         "Gene Chandler"                  "Paul Horn"                     
     [4] "Ronnie Earl & the Broadcasters" "Dorothy Ashby"                  "Barleyjuice"
