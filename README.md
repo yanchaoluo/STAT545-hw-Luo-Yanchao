@@ -10,6 +10,8 @@
 
 - If you want to know more about me: [homework1](https://github.com/yanchaoluo/STAT545-hw01-LUO-YANCHAO).
 
+[STAT545](http://stat545.com/index.html)
+
 ### Homework
 
 
