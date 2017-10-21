@@ -436,7 +436,7 @@ newsinger_locations4 <- singer_locations %>%
 
 -   Reorder the `title` by another variable `artist_hotttnesss`.
 
-1.  Original order
+*Original order*
 
 ``` r
 head(levels(newsinger_locations4$factor_title))
@@ -445,7 +445,7 @@ head(levels(newsinger_locations4$factor_title))
     ## [1] "The Conversation (Cd)" "Lonely Island"         "Here's That Rainy Day"
     ## [4] "Rego Park Blues"       "Games"                 "More Pipes"
 
-1.  Order the mean value instead of median value and using backwards.
+*Order the mean value instead of median value and using backwards.*
 
 ``` r
 fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hotttnesss, mean, desc = TRUE) %>% 
@@ -459,7 +459,7 @@ The levels of `title` are reordered, so that the mean of artist\_hotttnesss are 
 
 -   Reorder the `artist_name` by another variable `artist_hotttnesss`
 
-1.  Original order
+*Original order*
 
 ``` r
 head(levels(newsinger_locations4$factor_artist_name))
@@ -469,7 +469,7 @@ head(levels(newsinger_locations4$factor_artist_name))
     ## [3] "Paul Horn"                      "Ronnie Earl & the Broadcasters"
     ## [5] "Dorothy Ashby"                  "Barleyjuice"
 
-1.  Order the minimum value of artist\_hotttnesss.
+*Order the minimum value of artist\_hotttnesss.*
 
 ``` r
 fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist_hotttnesss, min) %>% 
@@ -561,7 +561,9 @@ newsinger_locations4 %>%
   theme( axis.title = element_text(size=14))
 ```
 
-![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png) `arrange()` does not change the order of the levels and has no effect on the plots. There is no change for the above plot compared with the graph, which only uses `reorder` function.
+![](hm05_Luo_Yanchao_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-23-1.png)
+
+`arrange()` does not change the order of the levels and has no effect on the plots. There is no change for the above plot compared with the graph, which only uses `reorder` function.
 
 File I/O
 --------
@@ -871,7 +873,7 @@ theme_bw() +
 
 Removing the `other`, which `artist` hotness are not in the top three. From the graph above, we can easily find that "Alicia Keys" has the highest artist hotness, and she also has higher familiarity happened after 2007. And "Joe Satriani" hotness ranks three and he has the lower familiarity happened in 2000.
 
-Try to use `multiplot` function
+#### The third graphs: Try to use `multiplot` function.
 
 ``` r
  p1<-singer_locations %>%
@@ -1025,6 +1027,13 @@ knitr::kable(head(p1))
 | At The End               | iio          | New York    | NY            |
 | The Hunting Song         | Tom Lehrer   | New York    | NY            |
 
+Clean up your repo!
+-------------------
+
+*You have 6 weeks of R Markdown and GitHub experience now. You’ve reviewed 4 peer assignments. Surely there are aspects of your current repo organization that could be better. Deal with that. Ideas:*
+
+*A nice Table of Contents in top-level README that links to individual pieces of work.* *Good for future: hw03 dplyr verbs* *Bummer in the future: hw03* *Include a slug with content info!* *Remove all downstream stuff, e.g. figures, html, etc. and re-render everything. It will be nice to not have weird, vestigial files lying around to puzzle you in future.* *Anything that’s Rmd but that could be md? Convert it.*
+
 Report the process.
 -------------------
 
@@ -1089,4 +1098,4 @@ However, the right output should be below as:
 
 In this homework, I found very useful link: [Writing and reading files](http://stat545.com/block026_file-out-in.html); [Be the boss of your factors](http://stat545.com/block029_factors.html); [Revisit ggplot](http://stat545.com/cm013_ggplot2-continued.html); [mutiple-plot](http://stat545.com/block020_multiple-plots-on-a-page.html#use-the-multiplot-function) [colors in ggplot2](http://stat545.com/block019_enforce-color-scheme.html)
 
-This time I try to plot more graphs in the meaningful way, and I spent many times on how to use functions in the right ways. I look through the lecture very careful and try different functons in my plot. In addition, I spent a lot of time on the data processing, expecially for dealing with the "NA". In the future, I want to learn more data analysis skill.
+I try to plot more graphs in the meaningful way at this time, and I spent many times on how to use functions in the right way. I looked through the lecture very carefully and tried different functons in my plots. In addition, I spent a lot of time on the data processing, expecially for dealing with the "NA". I want to learn more data analysis skill in the future.

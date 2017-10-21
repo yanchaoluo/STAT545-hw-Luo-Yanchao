@@ -198,13 +198,13 @@ newsinger_locations4 <- singer_locations %>%
 
 + Reorder the `title` by another variable `artist_hotttnesss  `.
 
-(1) Original order
+*Original order*
 
 ```{r}
 head(levels(newsinger_locations4$factor_title))
 ```
 
-(2) Order the mean value instead of median value and using backwards.
+*Order the mean value instead of median value and using backwards.*
 
 ```{r}
 fct_reorder(newsinger_locations4$factor_title, newsinger_locations4$artist_hotttnesss, mean, desc = TRUE) %>% 
@@ -215,13 +215,13 @@ The levels of `title` are reordered, so that the mean of artist_hotttnesss are i
 
 + Reorder the `artist_name` by another variable `artist_hotttnesss`
 
-(1) Original order
+*Original order*
 
 ```{r}
 head(levels(newsinger_locations4$factor_artist_name))
 ```
 
-(2) Order the minimum value of artist_hotttnesss.
+*Order the minimum value of artist_hotttnesss.*
 
 ```{r}
 fct_reorder(newsinger_locations4$factor_artist_name, newsinger_locations4$artist_hotttnesss, min) %>% 
@@ -306,6 +306,7 @@ newsinger_locations4 %>%
   theme( axis.title = element_text(size=14))
 
 ```
+
 `arrange()` does not change the order of the levels and has no effect on the plots.
 There is no change for the above plot compared with the graph, which only uses `reorder` function.
 
@@ -509,7 +510,7 @@ theme_bw() +
 Removing the `other`, which `artist` hotness are not in the top three.
 From the graph above, we can easily find that "Alicia Keys" has the highest artist hotness, and she also has higher familiarity happened after 2007. And "Joe Satriani" hotness ranks three and he has the lower familiarity happened in 2000.
 
-Try to use `multiplot` function
+#### The third graphs: Try to use `multiplot` function.
 
 ```{r}
  p1<-singer_locations %>%
@@ -606,6 +607,7 @@ ggsave("my plot.pdf", width=12, height=8, plot=p)
 ![plot](my plot.pdf)
 
 ## But I want to do more!
+
 *Make a deeper exploration of the forcats packages, i.e. try more of the factor level reordering functions.*
 
 *Revalue a factor, e.g.:*
@@ -645,6 +647,15 @@ p1<- But_I_want_do_more%>%
 knitr::kable(head(p1))
 ```
 
+## Clean up your repo!
+*You have 6 weeks of R Markdown and GitHub experience now. You’ve reviewed 4 peer assignments. Surely there are aspects of your current repo organization that could be better. Deal with that. Ideas:*
+
+*A nice Table of Contents in top-level README that links to individual pieces of work.*
+*Good for future: hw03 dplyr verbs*
+*Bummer in the future: hw03*
+*Include a slug with content info!*
+*Remove all downstream stuff, e.g. figures, html, etc. and re-render everything. It will be nice to not have weird, vestigial files lying around to puzzle you in future.*
+*Anything that’s Rmd but that could be md? Convert it.*
 
 ## Report the process.
 
@@ -688,4 +699,4 @@ In this homework,  I found very useful link:
 [mutiple-plot](http://stat545.com/block020_multiple-plots-on-a-page.html#use-the-multiplot-function)
 [colors in ggplot2](http://stat545.com/block019_enforce-color-scheme.html)
 
-This time I try to plot more graphs in the meaningful way, and I spent many times on how to use functions in the right ways. I look through the lecture very careful and try different functons in my plot. In addition, I spent a lot of time on the data processing, expecially for dealing with the "NA". In the future, I want to learn more data analysis skill.
+I try to plot more graphs in the meaningful way at this time, and I spent many times on how to use functions in the right way. I looked through the lecture very carefully and tried different functons in my plots. In addition, I spent a lot of time on the data processing, expecially for dealing with the "NA".  I want to learn more data analysis skill in the future.
