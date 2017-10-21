@@ -3,6 +3,7 @@ title: "README"
 output: github_document
 ---
 Goals:
++ [Homework5](http://stat545.com/hw05_factor-figure-boss-repo-hygiene.html)
 
 + Reorder a factor in a principled way based on the data and demonstrate the effect in arranged data and in figures.
 
@@ -13,12 +14,3 @@ Goals:
 
 + Organise your github, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.
 
-+ [Homework5](http://stat545.com/hw05_factor-figure-boss-repo-hygiene.html)
-
-Link related to this homework.
-
-+ [cm011](http://stat545.com/cm011_r-programming-file-io.html)
-
-+ [cm012](http://stat545.com/cm012_file-io-factors.html)
-
-+ [cm013](http://stat545.com/cm013_ggplot2-continued.html)
