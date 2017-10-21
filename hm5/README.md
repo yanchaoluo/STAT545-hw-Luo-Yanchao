@@ -1,7 +1,10 @@
 README
 ================
 
-**Hi, Everyone! Welcome to this repo for Homework05.**:smile: \#\# homework file
+**Hi, Everyone! Welcome to this repo for Homework05.**:smile:
+
+homework file
+-------------
 
 -   [hm05\_Luo\_Yanchao.md](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hm5/hm05_Luo_Yanchao.md)
 -   [hm05\_Luo\_Yanchao.rmd](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hm5/hm05_Luo_Yanchao.rmd)
