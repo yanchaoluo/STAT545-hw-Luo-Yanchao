@@ -2,7 +2,9 @@
 
 Welcome to this repo for Homework06
 
-### Homework information: [Homework 06: Data wrangling wrap up](http://stat545.com/hw06_data-wrangling-conclusion.html)
+### Homework information: 
+
+[Homework 06: Data wrangling wrap up](http://stat545.com/hw06_data-wrangling-conclusion.html)
 
 **Character data**
 
