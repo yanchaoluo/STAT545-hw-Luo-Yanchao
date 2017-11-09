@@ -38,7 +38,10 @@ HTML output in non-HTML formats by adding this option to the YAML front-matter o
 your rmarkdown file:
 
   always_allow_html: yes
+  
 ```
+
+Another question is that I try to use quadratic regression in my function, but I do not found any command which will match quadratic regression in `geom_smooth(method = "")`.
 
 Here I found some useful links for this homework. 
 
@@ -48,4 +51,3 @@ Here I found some useful links for this homework.
 
 + [string2](http://stat545.com/block022_regular-expression.html)
 
-Another question is that I try to use quadratic regression in my function, but I do not found any command which will match quadratic regression in `geom_smooth(method = "")`.
