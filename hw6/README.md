@@ -24,4 +24,4 @@ Welcome to this repo for Homework06
 
 + [hm06_Luo_Yanchao.rmd](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw6/hm06_Luo_Yanchao.rmd)
 
-+ [hm06_Luo_Yanchao.html](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw6/hm06_Luo_Yanchao.rmd)
++ [hm06_Luo_Yanchao.html](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw6/hm06_Luo_Yanchao.html)
