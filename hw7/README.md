@@ -32,7 +32,7 @@ Hi, Everyone! Welcome to my repo for Homework07.
 
 1.dowload this repo
 
-2.Find the Makefile in hw07
+2.Find the Makefile in hw07 and open hw7.Rproj
 
 3.Click clean all before build
 
