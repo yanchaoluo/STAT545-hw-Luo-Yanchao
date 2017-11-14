@@ -40,7 +40,7 @@ Hi, Everyone! Welcome to my repo for Homework07.
 
 ![](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw7/graaph.png?raw=true)
 
-From the image above, which shows a graphical view (the dependency diagram) of my pipeline using makefile2graph. At beginning, I download the data from the website and called [gapminder.tsv](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw7/gapminder.tsv).
+From the image above, which shows a graphical view of my pipeline using makefile2graph. At beginning, I download the data from the website and called [gapminder.tsv](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw7/gapminder.tsv).
 
 Secondly, I use [Perform_exploratory_analyses.R](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw7/Perform_exploratory_analyses.R) to do the "Perform exploratory analyses" part; 
 
