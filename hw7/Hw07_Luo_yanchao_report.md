@@ -281,7 +281,7 @@ write.table(coefs,
             sep = "\t", row.names = FALSE)
 ```
 
-NA
+**Find the 3 or 4 “worst” and “best” countries for each continent. You decide the details.**
 
 "worst" countries have larger std.error, "best" countries have smaller std.error.
 
