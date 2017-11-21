@@ -41,7 +41,7 @@ Add a textOutput() to the UI, and in its corresponding renderText() use the numb
 
 ### Report of my process
 
-Here is the [homework link]() on shinyapps.io.
+Here is the [homework link](https://yanchaoluo.shinyapps.io/Sample_for_Stat545_yanchao/) on shinyapps.io.
 
 ### Related link:
 
