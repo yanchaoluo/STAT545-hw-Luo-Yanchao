@@ -3,7 +3,7 @@
 
 Hi, Everyone! Welcome to  Homework08.
 
-[Homework 08](http://stat545.com/hw08_shiny.html)
+[Homework 08 requirement page](http://stat545.com/hw08_shiny.html)
 
 ### What you need to do
 
@@ -43,14 +43,29 @@ Add a textOutput() to the UI, and in its corresponding renderText() use the numb
 
 Here is the [homework link](https://yanchaoluo.shinyapps.io/Sample_for_Stat545_yanchao/) on shinyapps.io.
 
+I find a problem when "Allow the user to search for multiple alcohol types simultaneously" part. I change the `radioButtons` function to `selectInput` function in order to search for multiple alcohol types simultaneously. There is an error when there is no input in "What kind of booze?" and it will shows error below.  
+```
+Error: Result must have length 6132, not 0
+```
+I try to use what I learned in the previous feature (code below) to solve this problem, but it does not work.
+```
+if(nrow(Filtered_bcl())==0){
+      return(NULL)
+    }
+```
+
+Build a new Shiny app is very interesting, so I explored many features in this homework. I also try to use `ggvis` and `leaflet` packages but faces some problems. I will try to do this two in the future. For the "Provide a way for the user to show results from all countries" part, I got some idea from [daattali.com](https://daattali.com/shiny/bcl/). Moreover, I followed [ggvis](https://github.com/rstudio/ggvis) to add a survey on my website.
+
 ### Related link:
 
-https://deanattali.com/2015/04/23/shinyjs-r-package/
+[tab panel](https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html)
 
-https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html
+[file downloads](https://shiny.rstudio.com/reference/shiny/1.0.3/downloadHandler.html)
 
-https://shiny.rstudio.com/reference/shiny/1.0.3/downloadHandler.html
+[cheetsheet](http://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
 
-http://shiny.rstudio.com/images/shiny-cheatsheet.pdf
+[daattali.com](https://daattali.com/shiny/bcl/)
 
-https://daattali.com/shiny/bcl/
+[ggvis](https://github.com/rstudio/ggvis)
+
+[shinyjs](https://deanattali.com/2015/04/23/shinyjs-r-package/)
