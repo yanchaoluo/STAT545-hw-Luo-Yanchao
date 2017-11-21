@@ -59,7 +59,7 @@ if(nrow(Filtered_bcl())==0){
       return(NULL)
     }
 ```
-Build a new Shiny app was very interesting, so I explored many features in this homework. I also try to use `ggvis` and `leaflet` packages but faced some problems. So I will try to add this two packages on my website next time. Also, For the "Provide a way for the user to show results from all countries" part, I got some idea from [daattali.com](https://daattali.com/shiny/bcl/), and use `if else` function to filter the country. Moreover, I followed [ggvis](https://github.com/rstudio/ggvis) to add a survey on my website.
+Build a new Shiny app was very interesting, so I explored many features in this homework. I also tried to use `ggvis` and `leaflet` packages but faced some problems. So I will add this two packages on my website next time. Also, For the "Provide a way for the user to show results from all countries" part, I got some idea from [daattali.com](https://daattali.com/shiny/bcl/), and used `if else` function to filter the country. Moreover, I followed [shinyjs](https://deanattali.com/2015/04/23/shinyjs-r-package/) to add a survey on my website.
 
 ### Related link:
 
