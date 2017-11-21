@@ -1,7 +1,7 @@
 
 # STAT547M-hw08-Luo_Yanchao
 
-Hi, Everyone! Welcome to  Homework08.
+Welcome to  Homework08.
 
 [Homework 08 requirement page](http://stat545.com/hw08_shiny.html)
 
@@ -41,9 +41,7 @@ Add a textOutput() to the UI, and in its corresponding renderText() use the numb
 
 ### Report of my process
 
-Here is the [homework link](https://yanchaoluo.shinyapps.io/Sample_for_Stat545_yanchao/) on shinyapps.io.
-
-I find a problem when "Allow the user to search for multiple alcohol types simultaneously" part. I change the `radioButtons` function to `selectInput` function in order to search for multiple alcohol types simultaneously. There is an error when there is no input in "What kind of booze?" and it will shows error below.  
+I found a problem when I did "Allow the user to search for multiple alcohol types simultaneously" part. I tried to change the `radioButtons` function to `selectInput` function, which can search for multiple alcohol types simultaneously. There will be an error when no input in "What kind of booze?" and it will show error below.  
 ```
 Error: Result must have length 6132, not 0
 ```
@@ -53,8 +51,7 @@ if(nrow(Filtered_bcl())==0){
       return(NULL)
     }
 ```
-
-Build a new Shiny app is very interesting, so I explored many features in this homework. I also try to use `ggvis` and `leaflet` packages but faces some problems. I will try to do this two in the future. For the "Provide a way for the user to show results from all countries" part, I got some idea from [daattali.com](https://daattali.com/shiny/bcl/). Moreover, I followed [ggvis](https://github.com/rstudio/ggvis) to add a survey on my website.
+Build a new Shiny app was very interesting, so I explored many features in this homework. I also try to use `ggvis` and `leaflet` packages but faced some problems. So I will try to add this two packages on my website next time. Also, For the "Provide a way for the user to show results from all countries" part, I got some idea from [daattali.com](https://daattali.com/shiny/bcl/), and use `if else` function to fliter the country. Moreover, I followed [ggvis](https://github.com/rstudio/ggvis) to add a survey on my website.
 
 ### Related link:
 
