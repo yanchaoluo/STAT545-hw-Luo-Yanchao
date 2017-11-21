@@ -5,9 +5,9 @@ account: yanchaoluo
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 236339
-bundleId: 1087406
+bundleId: 1087500
 url: https://yanchaoluo.shinyapps.io/Sample_for_Stat545_yanchao/
-when: 1511250016.49875
+when: 1511255080.78512
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: README.md

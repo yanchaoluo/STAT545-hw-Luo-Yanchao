@@ -41,6 +41,14 @@ Add a textOutput() to the UI, and in its corresponding renderText() use the numb
 
 ### Report of my process
 
+Here is the [homework link](https://yanchaoluo.shinyapps.io/Sample_for_Stat545_yanchao/) on shinyapps.io.
+
++ [app.R](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw8/app.R)
+
++ [server.R](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw8/server.R)
+
++ [ui.R](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw8/ui.R)
+
 I found a problem when I did "Allow the user to search for multiple alcohol types simultaneously" part. I tried to change the `radioButtons` function to `selectInput` function, which can search for multiple alcohol types simultaneously. There will be an error when no input in "What kind of booze?" and it will show error below.  
 ```
 Error: Result must have length 6132, not 0
@@ -51,7 +59,7 @@ if(nrow(Filtered_bcl())==0){
       return(NULL)
     }
 ```
-Build a new Shiny app was very interesting, so I explored many features in this homework. I also try to use `ggvis` and `leaflet` packages but faced some problems. So I will try to add this two packages on my website next time. Also, For the "Provide a way for the user to show results from all countries" part, I got some idea from [daattali.com](https://daattali.com/shiny/bcl/), and use `if else` function to fliter the country. Moreover, I followed [ggvis](https://github.com/rstudio/ggvis) to add a survey on my website.
+Build a new Shiny app was very interesting, so I explored many features in this homework. I also try to use `ggvis` and `leaflet` packages but faced some problems. So I will try to add this two packages on my website next time. Also, For the "Provide a way for the user to show results from all countries" part, I got some idea from [daattali.com](https://daattali.com/shiny/bcl/), and use `if else` function to filter the country. Moreover, I followed [ggvis](https://github.com/rstudio/ggvis) to add a survey on my website.
 
 ### Related link:
 
