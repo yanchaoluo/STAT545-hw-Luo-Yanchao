@@ -13,31 +13,31 @@ Hi, Everyone! Welcome to  Homework08.
 
 **Possible features for the BC Liquor Store app.**
 
-+ Add an option to sort the results table by price. :check_mark:
++ Add an option to sort the results table by price. :heavy_check_mark:
 
-+ Add an image of the BC Liquor Store to the UI.  :check_mark:
++ Add an image of the BC Liquor Store to the UI.  :heavy_check_mark:
 
-+ Use the DT package to turn the current results table into an interactive table.  :check_mark:
++ Use the DT package to turn the current results table into an interactive table.  :heavy_check_mark:
 
-+ Add parameters to the plot. use `shinyjs::colourInput()`. :check_mark:
++ Add parameters to the plot. use `shinyjs::colourInput()`. :heavy_check_mark:
 
-+ The app currently behaves strangely when the user selects filters that return 0 results. For example, try searching for wines from Belgium. There will be an empty plot and empty table generated, and there will be a warning message in the R console. Try to figure out why this warning message is appearing, and how to fix it. :check_mark:
++ The app currently behaves strangely when the user selects filters that return 0 results. For example, try searching for wines from Belgium. There will be an empty plot and empty table generated, and there will be a warning message in the R console. Try to figure out why this warning message is appearing, and how to fix it. :heavy_check_mark:
 
-+ Place the plot and the table in separate tabs. Use `tabsetPanel()` to create an interface with multiple tabs. :check_mark:
++ Place the plot and the table in separate tabs. Use `tabsetPanel()` to create an interface with multiple tabs. :heavy_check_mark:
 
-+ Experiment with packages that add extra features to Shiny. :check_mark:
++ Experiment with packages that add extra features to Shiny. :heavy_check_mark:
 Using `shinyjs` to add one survey and time table.
 
 + Show the number of results found whenever the filters change. For example, when searching for Italian wines $20-$40, the app would show the text “We found 122 options for you”.
-Add a textOutput() to the UI, and in its corresponding renderText() use the number of rows in the filtered() object. :check_mark:
+Add a textOutput() to the UI, and in its corresponding renderText() use the number of rows in the filtered() object. :heavy_check_mark:
 
-+ Allow the user to download the results table as a ..csv file. :check_mark:
++ Allow the user to download the results table as a ..csv file. :heavy_check_mark:
 
-+ Allow the user to search for multiple alcohol types simultaneously, instead of being able to choose only wines/beers/etc. :check_mark:
++ Allow the user to search for multiple alcohol types simultaneously, instead of being able to choose only wines/beers/etc. :heavy_check_mark:
 
-+ Provide a way for the user to show results from all countries (instead of forcing a filter by only one specific country). :check_mark:
++ Provide a way for the user to show results from all countries (instead of forcing a filter by only one specific country). :heavy_check_mark:
 
-+ Add an input for “subtype” that will let the user filter for only a specific subtype of products. :check_mark:
++ Add an input for “subtype” that will let the user filter for only a specific subtype of products. :heavy_check_mark:
 
 ### Report of my process
 
