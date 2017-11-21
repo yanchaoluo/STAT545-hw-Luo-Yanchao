@@ -43,6 +43,8 @@ Add a textOutput() to the UI, and in its corresponding renderText() use the numb
 
 Here is the [homework link](https://yanchaoluo.shinyapps.io/Sample_for_Stat545_yanchao/) on shinyapps.io.
 
++[bcl-data.csv](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw8/bcl-data.csv)
+
 + [app.R](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw8/app.R)
 
 + [server.R](https://github.com/yanchaoluo/STAT545-hw-Luo-Yanchao/blob/master/hw8/server.R)
