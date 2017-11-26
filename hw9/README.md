@@ -39,3 +39,6 @@ Aim for the following elements:
 + functions to write and read data frames to plain text delimited files while retaining factor levels; maybe by writing/reading a companion file?
 
 ## Reprot of my process
+
+## Links
+[Solve notes problem](https://stackoverflow.com/questions/15648772/how-do-i-prevent-r-library-or-require-calls-not-declared-warnings-when-dev)
