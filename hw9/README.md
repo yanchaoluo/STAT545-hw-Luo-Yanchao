@@ -11,23 +11,25 @@ Welcome to  Homework09.
 
 Aim for the following elements:
 
-+ Define and export at least one new function, i.e. make it available to a user. We’d prefer more than one. Feel free to improve (or delete) the functions we already have.
++ Define and export at least one new function, i.e. make it available to a user. We’d prefer more than one. Feel free to improve (or delete) the functions we already have. :heavy_check_mark:
 
-+ Give function arguments sensible defaults, where relevant.
++ Give function arguments sensible defaults, where relevant. :heavy_check_mark:
 
-+ Use assertions to add some validity checks of function input.
++ Use assertions to add some validity checks of function input. :heavy_check_mark:
 
-+ Document all exported functions.
++ Document all exported functions. :heavy_check_mark:
 
-+ Include at least three unit tests for every function that is exported.
-   -There should be at least one expectation for success and one for failure.
++ Include at least three unit tests for every function that is exported. :heavy_check_mark:
+
+      -There should be at least one expectation for success and one for failure.
    
-+ Your package should pass check() without errors (warnings and notes are OK, though it would be great if there were none).
++ Your package should pass check() without errors (warnings and notes are OK, though it would be great if there were none). :heavy_check_mark:
 
-+ Keep updating the README and vignette to show usage of all the functions in the package. Your peer reviewers and TA will only have the README and vignette to go on when they try to use your package. Show them exactly what they can do! Remove boilerplate content from the vignette.
++ Keep updating the README and vignette to show usage of all the functions in the package. Your peer reviewers and TA will only have the README and vignette to go on when they try to use your package. Show them exactly what they can do! Remove boilerplate content from the vignette. :heavy_check_mark:
 
-+ Push your package to GitHub, preferably a public repo. If you are uncomfortable with that, please contact an instructor and we’ll work around that.
-Write your reflections in a document in your normal STAT 545/547 course repo and open the usual issue there. Make sure to provide a link to your package, so TAs/prof/peers can find it for review!
++ Push your package to GitHub, preferably a public repo. If you are uncomfortable with that, please contact an instructor and we’ll work around that. :heavy_check_mark:
+
++ Write your reflections in a document in your normal STAT 545/547 course repo and open the usual issue there. Make sure to provide a link to your package, so TAs/prof/peers can find it for review! :heavy_check_mark:
 
 ## Ideas for more foofactor functions to write:
 
