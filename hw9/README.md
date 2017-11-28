@@ -34,11 +34,43 @@ Aim for the following elements:
 ## Ideas for more foofactor functions to write:
 
 + detect factors that should be character because # unique values = length :heavy_check_mark:
-+ write a version of reorder() that uses desc() a la (d)plyr :heavy_check_mark:
++ write a version of reorder() that uses desc() in `dplyr` :heavy_check_mark:
 + write a version of factor() that sets levels to the order in which they appear in the data, i.e. set the levels “as is” :heavy_check_mark:
 + functions to write and read data frames to plain text delimited files while retaining factor levels; maybe by writing/reading a companion file?
 
 ## Reprot of my process
 
-## Links
-[Solve notes problem](https://stackoverflow.com/questions/15648772/how-do-i-prevent-r-library-or-require-calls-not-declared-warnings-when-dev)
+I added some new functions for the package "foofactor".
+
+In this assignment, I did `foofactors` and the `foofactors` package has five functions:
+
+-   `fbind`: Create a new factor from two existing factors, where the new factor's levels are the union of the levels of the input factors.
+
+-   `freq_out`: Make a frequency table for a factor.
+
+-   `order_appeared`: Set levels of a factor to the order appeared in data.
+
+-   `reorder_new`: Reorder levels in descending order.
+
+-   `detect_factor_be_character`: Detect factors be character or not.
+
+There is no errors, warnings, notes in my R CMD check results, but I found one warning in the Status:
+```
+checking for unstated dependencies in examples.
+```
+
+I double checked my package, I added `dplyr::` before `data_frame(x)` and `stats::` before `reorder`, but still can not correct this error.
+
+In this homework, I spent much time on adding sensible defaults. However, I found my functions in R file only have one input. So it is tough for me to add relevant defaults.
+
+If you download my R package, you could type `browseVignettes("foofactors")` in the console to see my Rmd in vignettes file.
+
+I used this link to solve one note problem. [Solve notes problem](https://stackoverflow.com/questions/15648772/how-do-i-prevent-r-library-or-require-calls-not-declared-warnings-when-dev)
+
+## Links 
+
++ [foofactors-package](http://stat545.com/packages06_foofactors-package.html)
+
++ [cm109-110 notes_and_exercises](http://stat545.com/cm109-110-notes_and_exercises.html)
+
+
