@@ -1,0 +1,217 @@
+---
+title: "Hw10_Luo_Yanchao"
+
+output: github_document
+---
+
+## Make API queries ¡°by hand¡± using httr.
+
+*GET() data from the API and convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you successfully downloaded and cleaned it.*
+
+```{r}
+library(tidyverse)
+library(magrittr)
+library(purrr)
+library(glue)
+library(stringr)
+library(purrr)
+library(knitr)
+library(rvest)
+library(xml2)
+library(httr)
+library(gapminder)
+library(geonames)
+library(countrycode)
+```
+
+*Write a function to got the general idea about the two movies*
+
+```{r}
+Find_movies<- function(title,year){
+  query_string<- glue("http://www.omdbapi.com/?t={title}&y={year}&apikey=YOURKEY")
+  movie_result<- GET(query_string)
+  movie_content<- content(movie_result)
+  return(movie_content)
+}
+
+thor<- Find_movies("thor", "2011")
+
+spider_man<-Find_movies("spider_man", "2002")
+
+thor<-data.frame(thor)
+spider_man<- data.frame(spider_man)
+
+```
+
+I found two movies "spider_man" and "thor", and I make a dataframe in order for further analysis.
+
+```{r}
+compared_two_movies<-full_join(thor,spider_man) 
+
+ knitr::kable(compared_two_movies)
+```
+
+There are many information in this table, using stat545 method to subset the data.
+
+```{r}
+subset<-compared_two_movies %>% 
+  select(Title, Year, Country, Awards, Ratings.Value) 
+ knitr::kable(subset)
+ 
+```
+
+```{r}
+subset %>% 
+  ggplot(aes(Title,Ratings.Value))+
+  geom_point(aes(color=Title))+
+  theme_bw() +
+  theme(axis.title.x = element_text(size=11),
+        axis.title.y = element_text(size=11))
+```
+
+
+
+## Scrape data
+
+*Work through the final set of slides from the rOpenSci UseR! 2016 workshop. This will give you basic orientation, skills, and pointers on the rvest package.*
+*Scrape a multi-record dataset off the web! Convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic* *exploration of the resulting data, possibly including some plots, that you and a reader are convinced youâ€™ve successfully downloaded and cleaned it.*
+
+We get a list of those title:
+
+```{r}
+url_titles <- "http://www.imdb.com/title/tt0145487/?ref_=nv_sr_3"
+
+spider <- read_html(url_titles)
+```
+
+
+```{r}
+initial <- html_nodes(spider, "em")
+html_text(initial)
+
+```
+
+get the cast name for the movie.
+
+```{r}
+name <- html_nodes(spider, "#titleCast span.itemprop")
+html_text(name) 
+```
+
+```{r}
+ html_nodes(spider, ".ratingValue span") %>%
+  html_text()%>%
+  paste0(collapse = '')
+```
+
+Right now we got the rate for the spider_man.
+
+
+Using the same way to find the thor information
+
+We get a list of those title:
+
+```{r}
+url_titles <- "http://www.imdb.com/title/tt0800369/?ref_=nv_sr_2"
+
+thornew <- read_html(url_titles)
+```
+
+
+```{r}
+initial <- html_nodes(thornew, "em")
+html_text(initial)
+
+```
+
+We get the cast name for the movie.
+
+```{r}
+name <- html_nodes(thornew, "#titleCast span.itemprop")
+html_text(name) 
+```
+
+```{r}
+ html_nodes(thornew, ".ratingValue span") %>%
+  html_text()%>%
+  paste0(collapse = '')
+```
+
+From above, we got the same result as making API queries ¡°by hand¡± using httr.
+
+```{r}
+url_titles2 <- "http://www.imdb.com/chart/top?ref_=nv_mv_250_6"
+```
+
+Got the title.
+```{r}
+top_movies<- read_html(url_titles2)
+main <- top_movies %>% 
+  html_nodes(".titleColumn") %>% 
+  html_text(trim = TRUE)
+```
+
+Got the rating
+```{r}
+movies_rating <- html_nodes(top_movies,".ratingColumn.imdbRating") %>% 
+  html_text(trim = TRUE)
+movies_rating<-as.numeric(movies_rating)
+```
+
+Using `gsub` function replaces all matches of a string.
+```{r}
+year1 <- gsub("^.*\\(", "", main)
+year2 <- gsub(".{1}$", "", year1)
+year<- as.numeric(year2)
+```
+
+
+```{r}
+dataset<- data.frame(year, movies_rating)
+```
+
+```{r}
+dataset %>% 
+  ggplot(aes(year,movies_rating))+
+    geom_point(color=year)+
+  theme_bw()+
+  theme(axis.title.x = element_text(size=15),
+        axis.title.y = element_text(size=15))
+```
+
+## Use an R package that wraps an API
+
+
+*Prompt 1*
+
+```{r}
+options(geonamesUsername = "your_name")
+addInforation <- GNcountryInfo() %>%
+    mutate(country = as.factor(
+        countrycode(isoAlpha3, 'iso3c',  'country.name'))) 
+
+combine <- left_join(gapminder, addInforation, by = "country") %>%
+    select(-c(countryName,continentName,continent.y))
+ combine %>%
+    head(5) %>%
+    knitr::kable()
+```
+
+*Consider the following graph of population against time *
+
+```{r}
+combine %>%
+    filter(continent.x!= "Oceania") %>%
+    ggplot(aes(x = year, y = pop, 
+                         group = country, 
+                         color = country)) +
+  geom_line(lwd = 1, show.legend = FALSE) + 
+    facet_wrap(~ continent.x) +
+  scale_color_manual(values = country_colors) + 
+    theme_bw() +
+  theme(strip.text = element_text(size = rel(1.1))) + 
+    scale_y_log10() 
+```
+
+
+
