@@ -4,7 +4,7 @@ title: "Hw10_Luo_Yanchao"
 output: github_document
 ---
 
-## Make API queries ¡°by hand¡± using httr.
+## Make API queries ??by hand?? using httr.
 
 *GET() data from the API and convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you successfully downloaded and cleaned it.*
 
@@ -28,7 +28,7 @@ library(countrycode)
 
 ```{r}
 Find_movies<- function(title,year){
-  query_string<- glue("http://www.omdbapi.com/?t={title}&y={year}&apikey=YOURKEY")
+  query_string<- glue("http://www.omdbapi.com/?t={title}&y={year}&apikey=Yourkey")
   movie_result<- GET(query_string)
   movie_content<- content(movie_result)
   return(movie_content)
@@ -67,6 +67,7 @@ subset %>%
   theme_bw() +
   theme(axis.title.x = element_text(size=11),
         axis.title.y = element_text(size=11))
+subset
 ```
 
 
@@ -137,7 +138,7 @@ html_text(name)
   paste0(collapse = '')
 ```
 
-From above, we got the same result as making API queries ¡°by hand¡± using httr.
+From above, we got the same result as making API queries ??by hand?? using httr.
 
 ```{r}
 url_titles2 <- "http://www.imdb.com/chart/top?ref_=nv_mv_250_6"
@@ -177,6 +178,7 @@ dataset %>%
   theme_bw()+
   theme(axis.title.x = element_text(size=15),
         axis.title.y = element_text(size=15))
+dataset
 ```
 
 ## Use an R package that wraps an API
@@ -185,7 +187,7 @@ dataset %>%
 *Prompt 1*
 
 ```{r}
-options(geonamesUsername = "your_name")
+options(geonamesUsername = "Your_name")
 addInforation <- GNcountryInfo() %>%
     mutate(country = as.factor(
         countrycode(isoAlpha3, 'iso3c',  'country.name'))) 

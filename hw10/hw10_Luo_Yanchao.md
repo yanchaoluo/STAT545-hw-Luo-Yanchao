@@ -1,8 +1,8 @@
 Hw10\_Luo\_Yanchao
 ================
 
-Make API queries “by hand�? using httr.
---------------------------------------
+Make API queries ??by hand?? using httr.
+----------------------------------------
 
 *GET() data from the API and convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you successfully downloaded and cleaned it.*
 
@@ -99,7 +99,7 @@ library(countrycode)
 
 ``` r
 Find_movies<- function(title,year){
-  query_string<- glue("http://www.omdbapi.com/?t={title}&y={year}&apikey=YOURKEY")
+  query_string<- glue("http://www.omdbapi.com/?t={title}&y={year}&apikey=Yourkey")
   movie_result<- GET(query_string)
   movie_content<- content(movie_result)
   return(movie_content)
@@ -220,10 +220,21 @@ subset %>%
 
 ![](hw10_Luo_Yanchao_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
+``` r
+subset
+```
+
+    ##        Title Year Country
+    ## 1       Thor 2011     USA
+    ## 2 Spider-Man 2002     USA
+    ##                                                      Awards Ratings.Value
+    ## 1                                  5 wins & 30 nominations.        7.0/10
+    ## 2 Nominated for 2 Oscars. Another 15 wins & 58 nominations.        7.3/10
+
 Scrape data
 -----------
 
-*Work through the final set of slides from the rOpenSci UseR! 2016 workshop. This will give you basic orientation, skills, and pointers on the rvest package.* *Scrape a multi-record dataset off the web! Convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic* *exploration of the resulting data, possibly including some plots, that you and a reader are convinced you鈥檝e successfully downloaded and cleaned it.*
+*Work through the final set of slides from the rOpenSci UseR! 2016 workshop. This will give you basic orientation, skills, and pointers on the rvest package.* *Scrape a multi-record dataset off the web! Convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic* *exploration of the resulting data, possibly including some plots, that you and a reader are convinced you’ve successfully downloaded and cleaned it.*
 
 We get a list of those title:
 
@@ -301,7 +312,7 @@ html_text(name)
 
     ## [1] "7.0/10"
 
-From above, we got the same result as making API queries “by hand�? using httr.
+From above, we got the same result as making API queries ??by hand?? using httr.
 
 ``` r
 url_titles2 <- "http://www.imdb.com/chart/top?ref_=nv_mv_250_6"
@@ -347,13 +358,269 @@ dataset %>%
 
 ![](hw10_Luo_Yanchao_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
+``` r
+dataset
+```
+
+    ##     year movies_rating
+    ## 1   1994           9.2
+    ## 2   1972           9.2
+    ## 3   1974           9.0
+    ## 4   2008           9.0
+    ## 5   1957           8.9
+    ## 6   1993           8.9
+    ## 7   1994           8.9
+    ## 8   2003           8.9
+    ## 9   1966           8.8
+    ## 10  1999           8.8
+    ## 11  2001           8.8
+    ## 12  1994           8.7
+    ## 13  1980           8.7
+    ## 14  2010           8.7
+    ## 15  2002           8.7
+    ## 16  1975           8.7
+    ## 17  1990           8.7
+    ## 18  1999           8.7
+    ## 19  1954           8.6
+    ## 20  1977           8.6
+    ## 21  2002           8.6
+    ## 22  1995           8.6
+    ## 23  1991           8.6
+    ## 24  1946           8.6
+    ## 25  1997           8.6
+    ## 26  1995           8.6
+    ## 27  1994           8.5
+    ## 28  1998           8.5
+    ## 29  2001           8.5
+    ## 30  1998           8.5
+    ## 31  1968           8.5
+    ## 32  2014           8.5
+    ## 33  1999           8.5
+    ## 34  1960           8.5
+    ## 35  1942           8.5
+    ## 36  1931           8.5
+    ## 37  2011           8.5
+    ## 38  1936           8.5
+    ## 39  2017           8.5
+    ## 40  2002           8.5
+    ## 41  1981           8.5
+    ## 42  2006           8.5
+    ## 43  1954           8.5
+    ## 44  1991           8.5
+    ## 45  1985           8.5
+    ## 46  2014           8.5
+    ## 47  2000           8.5
+    ## 48  2006           8.5
+    ## 49  1994           8.5
+    ## 50  2000           8.5
+    ## 51  1979           8.5
+    ## 52  1979           8.4
+    ## 53  1940           8.4
+    ## 54  1950           8.4
+    ## 55  1988           8.4
+    ## 56  1964           8.4
+    ## 57  2006           8.4
+    ## 58  1988           8.4
+    ## 59  1957           8.4
+    ## 60  2012           8.4
+    ## 61  1980           8.4
+    ## 62  2008           8.4
+    ## 63  1999           8.4
+    ## 64  2017           8.4
+    ## 65  1997           8.4
+    ## 66  2012           8.4
+    ## 67  2003           8.4
+    ## 68  1986           8.4
+    ## 69  1957           8.4
+    ## 70  1984           8.4
+    ## 71  1981           8.3
+    ## 72  2016           8.3
+    ## 73  1941           8.3
+    ## 74  1958           8.3
+    ## 75  1959           8.3
+    ## 76  1983           8.3
+    ## 77  1995           8.3
+    ## 78  1992           8.3
+    ## 79  1931           8.3
+    ## 80  2000           8.3
+    ## 81  2001           8.3
+    ## 82  2007           8.3
+    ## 83  2016           8.3
+    ## 84  1971           8.3
+    ## 85  1962           8.3
+    ## 86  1984           8.3
+    ## 87  1944           8.3
+    ## 88  2004           8.3
+    ## 89  1976           8.3
+    ## 90  1962           8.3
+    ## 91  1987           8.3
+    ## 92  1968           8.3
+    ## 93  1952           8.3
+    ## 94  1995           8.3
+    ## 95  2009           8.3
+    ## 96  1973           8.3
+    ## 97  2010           8.3
+    ## 98  2009           8.3
+    ## 99  1948           8.3
+    ## 100 1921           8.3
+    ## 101 2000           8.3
+    ## 102 1975           8.3
+    ## 103 1997           8.3
+    ## 104 2012           8.3
+    ## 105 1965           8.3
+    ## 106 1997           8.3
+    ## 107 1983           8.3
+    ## 108 1960           8.2
+    ## 109 1927           8.2
+    ## 110 2011           8.2
+    ## 111 1950           8.2
+    ## 112 2017           8.2
+    ## 113 1989           8.2
+    ## 114 1950           8.2
+    ## 115 1961           8.2
+    ## 116 2005           8.2
+    ## 117 2009           8.2
+    ## 118 2005           8.2
+    ## 119 1959           8.2
+    ## 120 1948           8.2
+    ## 121 1992           8.2
+    ## 122 2004           8.2
+    ## 123 1988           8.2
+    ## 124 1980           8.2
+    ## 125 1995           8.2
+    ## 126 1997           8.2
+    ## 127 1949           8.2
+    ## 128 1963           8.2
+    ## 129 1952           8.2
+    ## 130 1974           8.2
+    ## 131 2006           8.2
+    ## 132 1988           8.2
+    ## 133 2010           8.2
+    ## 134 1985           8.2
+    ## 135 1961           8.2
+    ## 136 1925           8.2
+    ## 137 2009           8.2
+    ## 138 2015           8.2
+    ## 139 2004           8.2
+    ## 140 1954           8.2
+    ## 141 1957           8.2
+    ## 142 1957           8.2
+    ## 143 2015           8.2
+    ## 144 1998           8.2
+    ## 145 1939           8.2
+    ## 146 2001           8.2
+    ## 147 1995           8.2
+    ## 148 1982           8.2
+    ## 149 1980           8.1
+    ## 150 2005           8.1
+    ## 151 2013           8.1
+    ## 152 1957           8.1
+    ## 153 1926           8.1
+    ## 154 2011           8.1
+    ## 155 1954           8.1
+    ## 156 1996           8.1
+    ## 157 2008           8.1
+    ## 158 1939           8.1
+    ## 159 1978           8.1
+    ## 160 1927           8.1
+    ## 161 1999           8.1
+    ## 162 1996           8.1
+    ## 163 1982           8.1
+    ## 164 2007           8.1
+    ## 165 1966           8.1
+    ## 166 1998           8.1
+    ## 167 2003           8.1
+    ## 168 1953           8.1
+    ## 169 1996           8.1
+    ## 170 2007           8.1
+    ## 171 1967           8.1
+    ## 172 1985           8.1
+    ## 173 1940           8.1
+    ## 174 2016           8.1
+    ## 175 2003           8.1
+    ## 176 2010           8.1
+    ## 177 2006           8.1
+    ## 178 1928           8.1
+    ## 179 2009           8.1
+    ## 180 2014           8.1
+    ## 181 2010           8.1
+    ## 182 2007           8.1
+    ## 183 2016           8.1
+    ## 184 1979           8.1
+    ## 185 1934           8.1
+    ## 186 2014           8.1
+    ## 187 2017           8.1
+    ## 188 1986           8.1
+    ## 189 1953           8.1
+    ## 190 2004           8.1
+    ## 191 1976           8.1
+    ## 192 1993           8.1
+    ## 193 1986           8.1
+    ## 194 2013           8.1
+    ## 195 2008           8.1
+    ## 196 2014           8.1
+    ## 197 1959           8.1
+    ## 198 1966           8.1
+    ## 199 2017           8.1
+    ## 200 1959           8.1
+    ## 201 1993           8.1
+    ## 202 2003           8.1
+    ## 203 2013           8.1
+    ## 204 2015           8.1
+    ## 205 2004           8.1
+    ## 206 2015           8.1
+    ## 207 1979           8.1
+    ## 208 1998           8.1
+    ## 209 2000           8.1
+    ## 210 1969           8.1
+    ## 211 2009           8.1
+    ## 212 1984           8.1
+    ## 213 1995           8.1
+    ## 214 1987           8.1
+    ## 215 1941           8.1
+    ## 216 1973           8.0
+    ## 217 2013           8.0
+    ## 218 1957           8.0
+    ## 219 2011           8.0
+    ## 220 1940           8.0
+    ## 221 1976           8.0
+    ## 222 2002           8.0
+    ## 223 1955           8.0
+    ## 224 1958           8.0
+    ## 225 2001           8.0
+    ## 226 1982           8.0
+    ## 227 2001           8.0
+    ## 228 1975           8.0
+    ## 229 1977           8.0
+    ## 230 1984           8.0
+    ## 231 2007           8.0
+    ## 232 2015           8.0
+    ## 233 1939           8.0
+    ## 234 1993           8.0
+    ## 235 1995           8.0
+    ## 236 1963           8.0
+    ## 237 2003           8.0
+    ## 238 1975           8.0
+    ## 239 1946           8.0
+    ## 240 1995           8.0
+    ## 241 2002           8.0
+    ## 242 1984           8.0
+    ## 243 2000           8.0
+    ## 244 2011           8.0
+    ## 245 1989           8.0
+    ## 246 1991           8.0
+    ## 247 2016           8.0
+    ## 248 1966           8.0
+    ## 249 2003           8.0
+    ## 250 1975           8.0
+
 Use an R package that wraps an API
 ----------------------------------
 
 *Prompt 1*
 
 ``` r
-options(geonamesUsername = "your_name")
+options(geonamesUsername = "Your_name")
 addInforation <- GNcountryInfo() %>%
     mutate(country = as.factor(
         countrycode(isoAlpha3, 'iso3c',  'country.name'))) 
