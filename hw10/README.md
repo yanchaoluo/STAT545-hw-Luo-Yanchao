@@ -29,7 +29,7 @@ Welcome to  Homework010.
 
 + In addition, I try to conbine `rebird` and `rplos`, but I cannot figure it out. I will keep it and try to do after the final exam.
 
-+ Stat 545 and Stat 545 are wonderful courses for R, and I learned a lot in this courses. Thanks all instructors, TAs, and classmates for helping me.
++ Stat 545 and Stat 547 are wonderful courses for R, and I learned a lot in this courses. Thanks all instructors, TAs, and classmates for helping me.
 
 ## Links
 
