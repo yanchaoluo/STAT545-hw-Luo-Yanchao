@@ -1,8 +1,8 @@
 Hw10\_Luo\_Yanchao
 ================
 
-Make API queries ??by hand?? using httr.
-----------------------------------------
+Make API queries “by hand” using httr.
+--------------------------------------
 
 *GET() data from the API and convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you successfully downloaded and cleaned it.*
 
@@ -620,7 +620,7 @@ Use an R package that wraps an API
 *Prompt 1*
 
 ``` r
-options(geonamesUsername = "Your_name")
+options(geonamesUsername = "Yourkey")
 addInforation <- GNcountryInfo() %>%
     mutate(country = as.factor(
         countrycode(isoAlpha3, 'iso3c',  'country.name'))) 
@@ -654,8 +654,29 @@ combine <- left_join(gapminder, addInforation, by = "country") %>%
 
 ``` r
 combine %>%
-    filter(continent.x!= "Oceania") %>%
-    ggplot(aes(x = year, y = pop, 
+    filter(continent.x!= "Oceania") 
+```
+
+    ## # A tibble: 1,680 x 20
+    ##        country continent.x  year lifeExp      pop gdpPercap capital
+    ##          <chr>      <fctr> <int>   <dbl>    <int>     <dbl>   <chr>
+    ##  1 Afghanistan        Asia  1952  28.801  8425333  779.4453   Kabul
+    ##  2 Afghanistan        Asia  1957  30.332  9240934  820.8530   Kabul
+    ##  3 Afghanistan        Asia  1962  31.997 10267083  853.1007   Kabul
+    ##  4 Afghanistan        Asia  1967  34.020 11537966  836.1971   Kabul
+    ##  5 Afghanistan        Asia  1972  36.088 13079460  739.9811   Kabul
+    ##  6 Afghanistan        Asia  1977  38.438 14880372  786.1134   Kabul
+    ##  7 Afghanistan        Asia  1982  39.854 12881816  978.0114   Kabul
+    ##  8 Afghanistan        Asia  1987  40.822 13867957  852.3959   Kabul
+    ##  9 Afghanistan        Asia  1992  41.674 16317921  649.3414   Kabul
+    ## 10 Afghanistan        Asia  1997  41.763 22227415  635.3414   Kabul
+    ## # ... with 1,670 more rows, and 13 more variables: languages <chr>,
+    ## #   geonameId <chr>, south <chr>, isoAlpha3 <chr>, north <chr>,
+    ## #   fipsCode <chr>, population <chr>, east <chr>, isoNumeric <chr>,
+    ## #   areaInSqKm <chr>, countryCode <chr>, west <chr>, currencyCode <chr>
+
+``` r
+  p<-  ggplot(combine, aes(x = year, y = pop, 
                          group = country, 
                          color = country)) +
   geom_line(lwd = 1, show.legend = FALSE) + 
@@ -664,6 +685,7 @@ combine %>%
     theme_bw() +
   theme(strip.text = element_text(size = rel(1.1))) + 
     scale_y_log10() 
+p
 ```
 
 ![](hw10_Luo_Yanchao_files/figure-markdown_github/unnamed-chunk-21-1.png)

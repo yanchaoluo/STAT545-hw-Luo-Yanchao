@@ -4,7 +4,7 @@ title: "Hw10_Luo_Yanchao"
 output: github_document
 ---
 
-## Make API queries ??by hand?? using httr.
+## Make API queries “by hand” using httr.
 
 *GET() data from the API and convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you successfully downloaded and cleaned it.*
 
@@ -187,7 +187,7 @@ dataset
 *Prompt 1*
 
 ```{r}
-options(geonamesUsername = "Your_name")
+options(geonamesUsername = "Yourkey")
 addInforation <- GNcountryInfo() %>%
     mutate(country = as.factor(
         countrycode(isoAlpha3, 'iso3c',  'country.name'))) 
@@ -203,8 +203,9 @@ combine <- left_join(gapminder, addInforation, by = "country") %>%
 
 ```{r}
 combine %>%
-    filter(continent.x!= "Oceania") %>%
-    ggplot(aes(x = year, y = pop, 
+    filter(continent.x!= "Oceania") 
+
+  p<-  ggplot(combine, aes(x = year, y = pop, 
                          group = country, 
                          color = country)) +
   geom_line(lwd = 1, show.legend = FALSE) + 
@@ -213,6 +214,7 @@ combine %>%
     theme_bw() +
   theme(strip.text = element_text(size = rel(1.1))) + 
     scale_y_log10() 
+p
 ```
 
 
